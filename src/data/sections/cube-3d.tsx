@@ -110,7 +110,7 @@ function DraggableHandle({ extrusionDepth, onDepthChange, sideLength }: Draggabl
     }, [isDragging, gl]);
 
     return (
-        <group position={[0, 0, handleZ]} data-concept="cube3d_extrusionDepth">
+        <group position={[0, 0, handleZ]} userData-concept="cube3d_extrusionDepth">
             {/* Cone arrow pointing in extrusion direction */}
             <mesh
                 ref={meshRef}
@@ -275,7 +275,7 @@ function CubeExtrusionScene({ extrusionDepth, sideLength, onDepthChange }: CubeE
                     points={[baseCorner, frontCorners[i]]}
                     color={AMBER}
                     lineWidth={2}
-                    data-concept="cube3d_edges"
+                    userData-concept="cube3d_edges"
                 />
             ))}
 
@@ -327,7 +327,7 @@ function CubeExtrusionScene({ extrusionDepth, sideLength, onDepthChange }: CubeE
 
             {/* Vertex markers */}
             {baseCorners.map((pos, i) => (
-                <mesh key={`base-vertex-${i}`} position={pos} data-concept="cube3d_vertices">
+                <mesh key={`base-vertex-${i}`} position={pos} userData-concept="cube3d_vertices">
                     <sphereGeometry args={[0.08, 16, 16]} />
                     <meshStandardMaterial color={AMBER} />
                 </mesh>

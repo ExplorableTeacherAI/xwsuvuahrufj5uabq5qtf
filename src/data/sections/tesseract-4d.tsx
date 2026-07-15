@@ -89,7 +89,7 @@ function SquareToCubeScene({ sweepProgress }: SquareToCubeProps) {
             <directionalLight position={[3, 4, 5]} intensity={0.7} />
 
             {/* Back face (ghost at origin) */}
-            <mesh position={[0, 0, 0]} data-concept="tesseract4d_leftFaces">
+            <mesh position={[0, 0, 0]} userData-concept="tesseract4d_leftFaces">
                 <planeGeometry args={[SIZE, SIZE]} />
                 <meshStandardMaterial
                     color={AMBER}
@@ -143,7 +143,7 @@ function SquareToCubeScene({ sweepProgress }: SquareToCubeProps) {
                             lineWidth={1.5}
                             transparent
                             opacity={0.8}
-                            data-concept="tesseract4d_leftEdges"
+                            userData-concept="tesseract4d_leftEdges"
                         />
                     ))}
 
@@ -184,7 +184,7 @@ function SquareToCubeScene({ sweepProgress }: SquareToCubeProps) {
 
             {/* Vertices */}
             {backVertices.map((pos, i) => (
-                <mesh key={`back-v-${i}`} position={pos} data-concept="tesseract4d_leftVertices">
+                <mesh key={`back-v-${i}`} position={pos} userData-concept="tesseract4d_leftVertices">
                     <sphereGeometry args={[0.06, 12, 12]} />
                     <meshStandardMaterial color={AMBER} />
                 </mesh>
@@ -253,7 +253,7 @@ function CubeToTesseractScene({ sweepProgress }: CubeToTesseractProps) {
             ))}
 
             {/* Inner cube faces (very transparent) */}
-            <mesh data-concept="tesseract4d_rightFaces">
+            <mesh userData-concept="tesseract4d_rightFaces">
                 <boxGeometry args={[SIZE, SIZE, SIZE]} />
                 <meshStandardMaterial
                     color={VIOLET}
@@ -273,7 +273,7 @@ function CubeToTesseractScene({ sweepProgress }: CubeToTesseractProps) {
                             points={[outerVertices[i], outerVertices[j]]}
                             color={VIOLET}
                             lineWidth={2}
-                            data-concept="tesseract4d_rightEdges"
+                            userData-concept="tesseract4d_rightEdges"
                         />
                     ))}
 
@@ -293,7 +293,7 @@ function CubeToTesseractScene({ sweepProgress }: CubeToTesseractProps) {
 
             {/* Inner cube vertices */}
             {innerVertices.map((pos, i) => (
-                <mesh key={`inner-v-${i}`} position={pos} data-concept="tesseract4d_rightVertices">
+                <mesh key={`inner-v-${i}`} position={pos} userData-concept="tesseract4d_rightVertices">
                     <sphereGeometry args={[0.05, 12, 12]} />
                     <meshStandardMaterial color={VIOLET} opacity={sweepProgress > 0 ? 0.5 : 1} transparent />
                 </mesh>

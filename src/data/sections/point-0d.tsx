@@ -8,8 +8,8 @@ import {
     InlineFeedback,
     InlineSpotColor,
     InlineTooltip,
+    InteractionHintSequence,
 } from "@/components/atoms";
-import { InteractionHintSequence } from "@/components/molecules";
 import { useVar, useSetVar } from "@/stores";
 import {
     getVariableInfo,
