@@ -263,3 +263,44 @@ export const budgetColor = (budget: number, maxBudget: number = 100): string => 
     if (ratio > 0.33) return '#F7B23B'; // amber/yellow
     return '#ef4444'; // red
 };
+
+// ─────────────────────────────────────────────────────────────
+// SQUARE (2D) PROPERTIES - LINE SWEEP
+// ─────────────────────────────────────────────────────────────
+
+/**
+ * Calculate the current X position of the sweeping line based on progress.
+ * Progress 0 = line at start position, Progress 1 = line at end position.
+ */
+export const sweepLineX = (
+    startX: number,
+    endX: number,
+    progress: number
+): number => {
+    return startX + (endX - startX) * Math.min(1, Math.max(0, progress));
+};
+
+/**
+ * Calculate the swept area at current progress.
+ * Area = width × height, where width is proportional to progress.
+ */
+export const sweptArea = (
+    startX: number,
+    endX: number,
+    y1: number,
+    y2: number,
+    progress: number
+): number => {
+    const width = (endX - startX) * Math.min(1, Math.max(0, progress));
+    const height = Math.abs(y2 - y1);
+    return width * height;
+};
+
+/**
+ * Calculate the number of "positions included" based on progress.
+ * This simulates the infinite intermediate positions by showing a count
+ * that grows with progress (conceptually infinite, but capped for display).
+ */
+export const positionsIncluded = (progress: number, maxPositions: number = 100): number => {
+    return Math.floor(progress * maxPositions);
+};

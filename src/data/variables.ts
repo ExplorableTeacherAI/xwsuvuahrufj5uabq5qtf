@@ -267,7 +267,7 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
     },
 
     // ─────────────────────────────────────────
-    // SECTION 2: Line to Square (1D → 2D)
+    // SECTION 2: Line to Square (1D → 2D) - Predict Swept Shape
     // ─────────────────────────────────────────
     lineToSquareProgress: {
         defaultValue: 0,
@@ -278,6 +278,99 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         max: 1,
         step: 0.01,
         color: '#8E90F5',
+    },
+    square2d_lineStartX: {
+        defaultValue: 60,
+        type: 'number',
+        label: 'Line Start X',
+        description: 'X coordinate of the initial line position (left edge)',
+        color: '#8E90F5',
+    },
+    square2d_lineEndX: {
+        defaultValue: 260,
+        type: 'number',
+        label: 'Line End X',
+        description: 'X coordinate of the final line position (right edge after sweep)',
+        color: '#8E90F5',
+    },
+    square2d_lineY1: {
+        defaultValue: 60,
+        type: 'number',
+        label: 'Line Top Y',
+        description: 'Y coordinate of the top endpoint of the vertical line',
+        color: '#8E90F5',
+    },
+    square2d_lineY2: {
+        defaultValue: 260,
+        type: 'number',
+        label: 'Line Bottom Y',
+        description: 'Y coordinate of the bottom endpoint of the vertical line',
+        color: '#8E90F5',
+    },
+    square2d_sweepProgress: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Sweep Progress',
+        description: 'Animation progress 0-1 showing how far the line has swept',
+        min: 0,
+        max: 1,
+        step: 0.01,
+        color: '#F7B23B',
+    },
+    square2d_positionsIncluded: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Positions Included',
+        description: 'Derived: count of intermediate line positions during sweep',
+        color: '#F7B23B',
+    },
+    square2d_placedCornerCount: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Placed Corner Count',
+        description: 'Number of corner markers placed by student (0-4)',
+        min: 0,
+        max: 4,
+        color: '#ef4444',
+    },
+    square2d_isRevealed: {
+        defaultValue: false,
+        type: 'boolean',
+        label: 'Is Revealed',
+        description: 'Whether the sweep animation has been triggered',
+    },
+    square2d_isAnimating: {
+        defaultValue: false,
+        type: 'boolean',
+        label: 'Is Animating',
+        description: 'Whether the sweep animation is currently running',
+    },
+    square2d_sweptArea: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Swept Area',
+        description: 'Derived: area of the swept rectangle (width × height)',
+        color: '#F7B23B',
+    },
+    answerSquare2dWhatFills: {
+        defaultValue: '',
+        type: 'select',
+        label: 'What Fills Answer',
+        description: 'Student answer for what fills the swept region',
+        placeholder: '?',
+        correctAnswer: 'every position of the line',
+        options: ['the four corners', 'the edges only', 'every position of the line', 'nothing inside'],
+        color: '#8E90F5',
+    },
+    answerSquare2dDimension: {
+        defaultValue: '',
+        type: 'select',
+        label: 'Square Dimension Answer',
+        description: 'Student answer for how many dimensions a square has',
+        placeholder: '?',
+        correctAnswer: 'two',
+        options: ['zero', 'one', 'two', 'three'],
+        color: '#62D0AD',
     },
 
     // ─────────────────────────────────────────

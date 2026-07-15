@@ -1,0 +1,108 @@
+{
+  "sectionId": "square-2d",
+  "learningObjective": "Understand that dragging a line perpendicular to itself creates a square with two dimensions (length and width). The aha moment: the swept shape is filled solid everywhere between start and end because every intermediate position of the line contributed to building the two-dimensional region.",
+  "ahaMoment": "Realizing that the swept shape is filled solid everywhere between start and end—not just defined by four corner points—because every intermediate position of the line contributed to building the two-dimensional region.",
+  "miniSpec": {
+    "title": "Predict the Swept Shape by Placing Corner Markers",
+    "narrative_wrapper": "A vertical blue line sits on the left. The student places four red dots where they think the corners of the final shape will be when the line sweeps rightward. When they press 'Reveal,' the line animates sweeping rightward, and a translucent orange shape fills in showing the actual swept region—visually confronting their prediction.",
+    "manipulated_variable": "The predicted corner positions of the swept shape, which reveals the student's mental model of whether sweeping creates a continuous region (square) or just endpoint positions (four separate vertices)",
+    "primary_visual_feedback": "During marker placement, faint guide lines connect the four dots to show what shape the student is predicting. When revealed, the actual swept square grows behind the moving line, showing that every position of the line during its journey contributes to the filled region.",
+    "causal_chain_exposed": "The moving line itself remains visible throughout the sweep, showing that every position of the line during its journey contributes to the filled region. A counter shows 'Positions included: 47... 48... 49...' as the line moves, emphasizing infinite intermediate states.",
+    "trace_strategy": "Both the predicted corner markers and the actual swept square remain visible simultaneously after the reveal, creating a direct visual comparison. If the student placed markers only at the four corners of the final position (misconception), they see their four dots sitting at the boundary while the entire interior is filled.",
+    "aha_moment": "Realizing that the swept shape is filled solid everywhere between start and end—not just defined by four corner points—because every intermediate position of the line contributed to building the two-dimensional region.",
+    "lens": "prediction_first",
+    "novelty": 0.88,
+    "rubric_score": 4.64,
+    "feasibility_tier": 1
+  },
+  "modelVariables": {
+    "square2d_lineStartX": "X coordinate of the initial line position (left edge)",
+    "square2d_lineEndX": "X coordinate of the final line position (right edge after sweep)",
+    "square2d_lineY1": "Y coordinate of the top endpoint of the vertical line",
+    "square2d_lineY2": "Y coordinate of the bottom endpoint of the vertical line",
+    "square2d_sweepProgress": "Animation progress 0-1 showing how far the line has swept",
+    "square2d_positionsIncluded": "Derived: count of intermediate line positions during sweep",
+    "square2d_predictedCorners": "Array of 4 predicted corner positions [{x,y}]",
+    "square2d_placedCornerCount": "Number of corner markers placed by student (0-4)",
+    "square2d_isRevealed": "Boolean: whether the sweep animation has been triggered",
+    "square2d_isAnimating": "Boolean: whether the sweep animation is currently running",
+    "square2d_sweptArea": "Derived: area of the swept rectangle (width × height)"
+  },
+  "assertions": [
+    {
+      "id": "initial-state-poses-problem",
+      "description": "On load, the line sits at the left edge, no sweep has occurred, and student needs to place corner predictions",
+      "expect": [
+        { "var": "square2d_sweepProgress", "op": "==", "value": 0 },
+        { "var": "square2d_isRevealed", "op": "==", "value": false },
+        { "var": "square2d_placedCornerCount", "op": "==", "value": 0 }
+      ],
+      "visualCheck": "Vertical blue line on left side, empty canvas for placing corner predictions, 'Place 4 corners' instruction visible"
+    },
+    {
+      "id": "corner-placement-builds-prediction",
+      "description": "Clicking on the canvas places corner markers that connect to show the predicted shape",
+      "setup": { "square2d_placedCornerCount": 0, "square2d_isRevealed": false },
+      "action": { "var": "square2d_placedCornerCount", "to": 4 },
+      "expect": [
+        { "var": "square2d_placedCornerCount", "op": "==", "value": 4 }
+      ],
+      "visualCheck": "Four red corner markers visible, connected by faint dashed lines showing the predicted shape outline"
+    },
+    {
+      "id": "reveal-starts-animation",
+      "description": "Pressing reveal triggers the sweep animation",
+      "setup": { "square2d_placedCornerCount": 4, "square2d_isRevealed": false, "square2d_sweepProgress": 0 },
+      "action": { "var": "square2d_isRevealed", "to": true },
+      "expect": [
+        { "var": "square2d_isAnimating", "op": "==", "value": true }
+      ],
+      "visualCheck": "Reveal button disabled, line begins moving rightward, translucent orange region grows"
+    },
+    {
+      "id": "sweep-fills-region-continuously",
+      "description": "During sweep, the positions counter increases and the filled region grows",
+      "setup": { "square2d_isRevealed": true, "square2d_sweepProgress": 0.5 },
+      "action": { "var": "square2d_sweepProgress", "to": 0.75 },
+      "expect": [
+        { "var": "square2d_positionsIncluded", "op": ">", "value": 0 },
+        { "var": "square2d_sweptArea", "op": ">", "value": 0 }
+      ],
+      "visualCheck": "Translucent orange rectangle grows as line moves, positions counter increases"
+    },
+    {
+      "id": "aha-interior-is-filled",
+      "description": "After full sweep, the entire interior is filled, not just the corner points",
+      "setup": { "square2d_sweepProgress": 1.0, "square2d_isRevealed": true },
+      "action": { "var": "square2d_isAnimating", "to": false },
+      "expect": [
+        { "var": "square2d_sweepProgress", "op": "==", "value": 1 },
+        { "var": "square2d_sweptArea", "op": ">", "value": 0 }
+      ],
+      "visualCheck": "Entire rectangle is filled solid orange, predicted corner markers sit at boundary only, showing the misconception contrast"
+    }
+  ],
+  "invariants": [
+    {
+      "id": "progress-bounded",
+      "description": "Sweep progress stays between 0 and 1",
+      "expect": [
+        { "expr": "square2d_sweepProgress >= 0 && square2d_sweepProgress <= 1" }
+      ]
+    },
+    {
+      "id": "corner-count-bounded",
+      "description": "Cannot place more than 4 corners",
+      "expect": [
+        { "expr": "square2d_placedCornerCount >= 0 && square2d_placedCornerCount <= 4" }
+      ]
+    },
+    {
+      "id": "area-matches-geometry",
+      "description": "Swept area equals width times height of the rectangle",
+      "expect": [
+        { "expr": "abs(square2d_sweptArea - ((square2d_lineEndX - square2d_lineStartX) * square2d_sweepProgress * (square2d_lineY2 - square2d_lineY1))) < 1" }
+      ]
+    }
+  ]
+}
