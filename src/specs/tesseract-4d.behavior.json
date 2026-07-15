@@ -1,0 +1,122 @@
+{
+  "sectionId": "tesseract-4d",
+  "learningObjective": "Understand that a tesseract is created by dragging a cube into the fourth dimension, and we can only see its 3D shadow/projection. The aha moment: the 4D construction process follows the exact same geometric logic as building a 3D cube from a 2D square — the pattern is identical, making 4D feel mechanically comprehensible.",
+  "ahaMoment": "The student realizes that the 4D construction process is not mysterious—it follows the exact same geometric logic as building a 3D cube from a 2D square, just applied one dimension higher; the pattern is identical, making 4D feel mechanically comprehensible",
+  "miniSpec": {
+    "title": "Construction Recipe Comparison: 2D→3D vs 3D→4D",
+    "narrative_wrapper": "On the left, you watch a square being dragged perpendicular to itself to sweep out a cube, with a progress slider showing each intermediate stage. On the right, the exact same slider simultaneously shows a cube being dragged through the fourth dimension to sweep out a tesseract. Every construction step happens in parallel, so you see the pattern: each dimension adds the same way.",
+    "manipulated_variable": "Sweep distance controls how far the lower-dimensional shape has traveled perpendicular to itself, changing the completeness of the higher-dimensional object being constructed",
+    "primary_visual_feedback": "Both panels animate synchronously: the left shows the square creating stacked copies connected by edges to form the cube; the right shows the cube creating stacked copies connected by faces to form the tesseract's structure",
+    "causal_chain_exposed": "Numeric readouts show identical sweep distances; intermediate copies appear as ghosted layers; connecting elements (edges on left, faces on right) materialize progressively; labels count vertices, edges, faces, and cells in parallel",
+    "trace_strategy": "The previous position of the swept shape remains visible as a faint ghost at the starting location, with all connecting elements persisting, creating a visual history of the sweeping motion and showing the complete path traveled",
+    "aha_moment": "The student realizes that the 4D construction process is not mysterious—it follows the exact same geometric logic as building a 3D cube from a 2D square, just applied one dimension higher; the pattern is identical, making 4D feel mechanically comprehensible",
+    "lens": "comparison",
+    "novelty": 0.901,
+    "rubric_score": 5,
+    "feasibility_tier": 2
+  },
+  "modelVariables": {
+    "tesseract4d_sweepProgress": "Current sweep progress from 0 (initial shape) to 1 (fully extruded shape), controls BOTH visualizations simultaneously",
+    "tesseract4d_leftVertices": "Derived: vertex count for left panel (square→cube): 4 at start, 8 at end",
+    "tesseract4d_leftEdges": "Derived: edge count for left panel (square→cube): 4 at start, 12 at end",
+    "tesseract4d_leftFaces": "Derived: face count for left panel (square→cube): 1 at start, 6 at end",
+    "tesseract4d_rightVertices": "Derived: vertex count for right panel (cube→tesseract): 8 at start, 16 at end",
+    "tesseract4d_rightEdges": "Derived: edge count for right panel (cube→tesseract): 12 at start, 32 at end",
+    "tesseract4d_rightFaces": "Derived: face count for right panel (cube→tesseract): 6 at start, 24 at end",
+    "tesseract4d_rightCells": "Derived: cell count for right panel (cube→tesseract): 0 at start, 8 at end",
+    "tesseract4d_hasInteracted": "Boolean: whether the student has started dragging the sweep slider"
+  },
+  "assertions": [
+    {
+      "id": "initial-state-poses-problem",
+      "description": "On load, both shapes are at sweep=0, showing the starting shape with no extrusion, inviting the student to drag",
+      "expect": [
+        { "var": "tesseract4d_sweepProgress", "op": "==", "value": 0 },
+        { "var": "tesseract4d_hasInteracted", "op": "==", "value": false },
+        { "var": "tesseract4d_leftVertices", "op": "==", "value": 4 },
+        { "var": "tesseract4d_rightVertices", "op": "==", "value": 8 }
+      ],
+      "visualCheck": "Left panel shows flat square with 4 vertices; right panel shows cube with 8 vertices; sweep slider at 0; both labeled with starting counts"
+    },
+    {
+      "id": "both-panels-sync-on-drag",
+      "description": "Dragging the sweep slider updates BOTH panels simultaneously with the same progress value",
+      "setup": { "tesseract4d_sweepProgress": 0 },
+      "action": { "var": "tesseract4d_sweepProgress", "to": 0.5 },
+      "expect": [
+        { "var": "tesseract4d_sweepProgress", "op": "==", "value": 0.5 },
+        { "var": "tesseract4d_hasInteracted", "op": "==", "value": true },
+        { "var": "tesseract4d_leftVertices", "op": "==", "value": 8 },
+        { "var": "tesseract4d_rightVertices", "op": "==", "value": 16 }
+      ],
+      "visualCheck": "Both panels show halfway-extruded shapes; left cube forming with connecting edges; right tesseract forming with connecting faces; vertex counts doubled in both"
+    },
+    {
+      "id": "full-sweep-completes-both-shapes",
+      "description": "At sweep=1, left shows complete cube (8 vertices, 12 edges, 6 faces) and right shows complete tesseract (16 vertices, 32 edges, 24 faces, 8 cells)",
+      "setup": { "tesseract4d_sweepProgress": 0.5 },
+      "action": { "var": "tesseract4d_sweepProgress", "to": 1 },
+      "expect": [
+        { "var": "tesseract4d_leftVertices", "op": "==", "value": 8 },
+        { "var": "tesseract4d_leftEdges", "op": "==", "value": 12 },
+        { "var": "tesseract4d_leftFaces", "op": "==", "value": 6 },
+        { "var": "tesseract4d_rightVertices", "op": "==", "value": 16 },
+        { "var": "tesseract4d_rightEdges", "op": "==", "value": 32 },
+        { "var": "tesseract4d_rightFaces", "op": "==", "value": 24 },
+        { "var": "tesseract4d_rightCells", "op": "==", "value": 8 }
+      ],
+      "visualCheck": "Left panel shows complete 3D cube wireframe; right panel shows complete tesseract projection; all counts match expected values"
+    },
+    {
+      "id": "vertex-doubling-pattern-visible",
+      "description": "The pattern is clear: vertices double at each dimension (4→8 on left, 8→16 on right)",
+      "setup": { "tesseract4d_sweepProgress": 0 },
+      "action": { "var": "tesseract4d_sweepProgress", "to": 1 },
+      "expect": [
+        { "var": "tesseract4d_leftVertices", "op": "==", "value": 8 },
+        { "var": "tesseract4d_rightVertices", "op": "==", "value": 16 }
+      ],
+      "visualCheck": "Both panels show vertex labels updating from 4→8 (left) and 8→16 (right), demonstrating the doubling pattern"
+    },
+    {
+      "id": "ghost-traces-show-sweep-path",
+      "description": "Ghost traces of the swept shape remain visible, showing the construction path",
+      "setup": { "tesseract4d_sweepProgress": 0.25 },
+      "action": { "var": "tesseract4d_sweepProgress", "to": 0.75 },
+      "expect": [
+        { "var": "tesseract4d_sweepProgress", "op": "==", "value": 0.75 }
+      ],
+      "visualCheck": "Both panels show faint ghost copies of the original shape at starting position, with connecting elements tracing the sweep path"
+    }
+  ],
+  "invariants": [
+    {
+      "id": "sweep-bounded",
+      "description": "Sweep progress stays between 0 and 1",
+      "expect": [
+        { "expr": "tesseract4d_sweepProgress >= 0 && tesseract4d_sweepProgress <= 1" }
+      ]
+    },
+    {
+      "id": "left-vertices-match-cube-formula",
+      "description": "Left panel vertices match cube formula: 4 when sweep=0, 8 when sweep>0",
+      "expect": [
+        { "expr": "tesseract4d_leftVertices >= 4 && tesseract4d_leftVertices <= 8" }
+      ]
+    },
+    {
+      "id": "right-vertices-match-tesseract-formula",
+      "description": "Right panel vertices match tesseract formula: 8 when sweep=0, 16 when sweep>0",
+      "expect": [
+        { "expr": "tesseract4d_rightVertices >= 8 && tesseract4d_rightVertices <= 16" }
+      ]
+    },
+    {
+      "id": "both-panels-use-same-sweep",
+      "description": "Both panels always share the same sweep progress value",
+      "expect": [
+        { "expr": "tesseract4d_sweepProgress >= 0" }
+      ]
+    }
+  ]
+}

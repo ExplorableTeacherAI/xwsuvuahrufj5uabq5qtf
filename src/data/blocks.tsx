@@ -15,6 +15,8 @@ import { square2dBlocks } from "./sections/square-2d";
 
 import { cube3dBlocks } from "./sections/cube-3d";
 
+import { tesseract4dBlocks } from "./sections/tesseract-4d";
+
 /**
  * ------------------------------------------------------------------
  * BUILDING A TESSERACT: From Point to 4D
@@ -37,4 +39,5 @@ export const blocks: ReactElement[] = [
     ...line1dBlocks,
     ...square2dBlocks,
     ...cube3dBlocks,
+    ...tesseract4dBlocks,
 ];

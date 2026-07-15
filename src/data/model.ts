@@ -372,3 +372,202 @@ export const cubeCrossSectionPositions = (extrusionDepth: number, count: number)
     }
     return positions;
 };
+
+// ─────────────────────────────────────────────────────────────
+// SIDE-BY-SIDE SWEEP VISUALIZATION (Tesseract Section)
+// ─────────────────────────────────────────────────────────────
+
+/**
+ * Calculate vertices during sweep for left panel (square → cube).
+ * At sweep = 0: 4 vertices (just the square)
+ * At sweep > 0: 8 vertices (original + copy)
+ */
+export const squareToCubeVertices = (sweepProgress: number): number => {
+    return sweepProgress > 0 ? 8 : 4;
+};
+
+/**
+ * Calculate edges during sweep for left panel (square → cube).
+ * At sweep = 0: 4 edges (just the square)
+ * At sweep > 0: 12 edges (4 original + 4 copy + 4 connecting)
+ */
+export const squareToCubeEdges = (sweepProgress: number): number => {
+    return sweepProgress > 0 ? 12 : 4;
+};
+
+/**
+ * Calculate faces during sweep for left panel (square → cube).
+ * At sweep = 0: 1 face (just the square)
+ * At sweep > 0: 6 faces (2 squares + 4 rectangles)
+ */
+export const squareToCubeFaces = (sweepProgress: number): number => {
+    return sweepProgress > 0 ? 6 : 1;
+};
+
+/**
+ * Calculate vertices during sweep for right panel (cube → tesseract).
+ * At sweep = 0: 8 vertices (just the cube)
+ * At sweep > 0: 16 vertices (original + copy)
+ */
+export const cubeToTesseractVertices = (sweepProgress: number): number => {
+    return sweepProgress > 0 ? 16 : 8;
+};
+
+/**
+ * Calculate edges during sweep for right panel (cube → tesseract).
+ * At sweep = 0: 12 edges (just the cube)
+ * At sweep > 0: 32 edges (12 original + 12 copy + 8 connecting)
+ */
+export const cubeToTesseractEdges = (sweepProgress: number): number => {
+    return sweepProgress > 0 ? 32 : 12;
+};
+
+/**
+ * Calculate faces during sweep for right panel (cube → tesseract).
+ * At sweep = 0: 6 faces (just the cube)
+ * At sweep > 0: 24 faces (6 original + 6 copy + 12 connecting)
+ */
+export const cubeToTesseractFaces = (sweepProgress: number): number => {
+    return sweepProgress > 0 ? 24 : 6;
+};
+
+/**
+ * Calculate cells (3D facets) during sweep for right panel (cube → tesseract).
+ * At sweep = 0: 0 cells (cube has no 3D interior structure as a cell)
+ * At sweep > 0: 8 cells (the cube sweeps through 4D, creating 8 cubic cells)
+ */
+export const cubeToTesseractCells = (sweepProgress: number): number => {
+    return sweepProgress > 0 ? 8 : 0;
+};
+
+/**
+ * Generate 2D square vertices for left panel visualization.
+ * Returns 4 corner points of a square centered at origin.
+ */
+export const squareVertices2D = (size: number): [number, number][] => {
+    const half = size / 2;
+    return [
+        [-half, -half],
+        [half, -half],
+        [half, half],
+        [-half, half],
+    ];
+};
+
+/**
+ * Generate 2D cube projection (isometric) for left panel.
+ * Returns 8 vertices of a cube projected to 2D with isometric view.
+ */
+export const cubeVertices2DIsometric = (
+    size: number,
+    depth: number,
+    sweepProgress: number
+): [number, number][] => {
+    const half = size / 2;
+    const offset = depth * sweepProgress;
+    // Isometric offset direction: up and to the right
+    const isoX = offset * 0.5;
+    const isoY = offset * 0.5;
+
+    // Back face (original square)
+    const backFace: [number, number][] = [
+        [-half, -half],
+        [half, -half],
+        [half, half],
+        [-half, half],
+    ];
+
+    // Front face (swept copy)
+    const frontFace: [number, number][] = [
+        [-half + isoX, -half + isoY],
+        [half + isoX, -half + isoY],
+        [half + isoX, half + isoY],
+        [-half + isoX, half + isoY],
+    ];
+
+    return [...backFace, ...frontFace];
+};
+
+/**
+ * Generate 3D cube vertices.
+ * Returns 8 vertices of a cube centered at origin.
+ */
+export const cubeVertices3D = (size: number): [number, number, number][] => {
+    const half = size / 2;
+    return [
+        [-half, -half, -half],
+        [half, -half, -half],
+        [half, half, -half],
+        [-half, half, -half],
+        [-half, -half, half],
+        [half, -half, half],
+        [half, half, half],
+        [-half, half, half],
+    ];
+};
+
+/**
+ * Generate cube edges as pairs of vertex indices.
+ */
+export const cubeEdgeIndices = (): [number, number][] => {
+    return [
+        // Back face
+        [0, 1], [1, 2], [2, 3], [3, 0],
+        // Front face
+        [4, 5], [5, 6], [6, 7], [7, 4],
+        // Connecting edges
+        [0, 4], [1, 5], [2, 6], [3, 7],
+    ];
+};
+
+/**
+ * Generate tesseract (hypercube) vertices during construction.
+ * When sweepProgress = 0: returns the 8 vertices of the inner cube
+ * When sweepProgress > 0: returns all 16 vertices
+ *
+ * The 4D w-coordinate determines inner vs outer cube.
+ */
+export const tesseractVerticesDuring4DSweep = (
+    size: number,
+    sweepProgress: number
+): [number, number, number, number][] => {
+    const half = size / 2;
+    const wOffset = sweepProgress * size;
+
+    const vertices: [number, number, number, number][] = [];
+
+    // Inner cube (w = 0)
+    for (let x = -1; x <= 1; x += 2) {
+        for (let y = -1; y <= 1; y += 2) {
+            for (let z = -1; z <= 1; z += 2) {
+                vertices.push([x * half, y * half, z * half, 0]);
+            }
+        }
+    }
+
+    // Outer cube (w = wOffset) - only if sweepProgress > 0
+    if (sweepProgress > 0) {
+        for (let x = -1; x <= 1; x += 2) {
+            for (let y = -1; y <= 1; y += 2) {
+                for (let z = -1; z <= 1; z += 2) {
+                    vertices.push([x * half, y * half, z * half, wOffset]);
+                }
+            }
+        }
+    }
+
+    return vertices;
+};
+
+/**
+ * Project a 4D point to 3D using stereographic projection.
+ * This creates the characteristic "cube within a cube" appearance.
+ */
+export const project4Dto3DStereographic = (
+    point: [number, number, number, number],
+    wDistance: number = 3
+): [number, number, number] => {
+    const [x, y, z, w] = point;
+    const scale = wDistance / (wDistance - w);
+    return [x * scale, y * scale, z * scale];
+};

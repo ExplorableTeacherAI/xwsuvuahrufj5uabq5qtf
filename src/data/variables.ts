@@ -557,6 +557,95 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         options: ['rotate it', 'drag perpendicular', 'copy it', 'stretch it'],
         color: '#7DD3C0',
     },
+
+    // ─────────────────────────────────────────
+    // SECTION 5: Tesseract (3D → 4D) - Side-by-Side Comparison
+    // ─────────────────────────────────────────
+    tesseract4d_sweepProgress: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Sweep Progress',
+        description: 'How far both shapes have been swept (0 = start, 1 = complete)',
+        min: 0,
+        max: 1,
+        step: 0.01,
+        color: '#AC8BF9',
+    },
+    tesseract4d_leftVertices: {
+        defaultValue: 4,
+        type: 'number',
+        label: 'Left Vertices',
+        description: 'Derived: vertex count for left panel (square→cube)',
+        color: '#F7B23B',
+    },
+    tesseract4d_leftEdges: {
+        defaultValue: 4,
+        type: 'number',
+        label: 'Left Edges',
+        description: 'Derived: edge count for left panel (square→cube)',
+        color: '#F7B23B',
+    },
+    tesseract4d_leftFaces: {
+        defaultValue: 1,
+        type: 'number',
+        label: 'Left Faces',
+        description: 'Derived: face count for left panel (square→cube)',
+        color: '#F7B23B',
+    },
+    tesseract4d_rightVertices: {
+        defaultValue: 8,
+        type: 'number',
+        label: 'Right Vertices',
+        description: 'Derived: vertex count for right panel (cube→tesseract)',
+        color: '#AC8BF9',
+    },
+    tesseract4d_rightEdges: {
+        defaultValue: 12,
+        type: 'number',
+        label: 'Right Edges',
+        description: 'Derived: edge count for right panel (cube→tesseract)',
+        color: '#AC8BF9',
+    },
+    tesseract4d_rightFaces: {
+        defaultValue: 6,
+        type: 'number',
+        label: 'Right Faces',
+        description: 'Derived: face count for right panel (cube→tesseract)',
+        color: '#AC8BF9',
+    },
+    tesseract4d_rightCells: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Right Cells',
+        description: 'Derived: cell (3D facet) count for right panel (cube→tesseract)',
+        color: '#AC8BF9',
+    },
+    tesseract4d_hasInteracted: {
+        defaultValue: false,
+        type: 'boolean',
+        label: 'Has Interacted',
+        description: 'Whether the student has started dragging the sweep slider',
+    },
+    answerTesseract4dVerticesPattern: {
+        defaultValue: '',
+        type: 'select',
+        label: 'Tesseract Vertices Pattern',
+        description: 'Student answer for the pattern of vertices when moving up a dimension',
+        placeholder: '?',
+        correctAnswer: 'doubles each time',
+        options: ['adds 4 each time', 'doubles each time', 'adds 8 each time', 'stays the same'],
+        color: '#AC8BF9',
+    },
+    answerTesseract4dConstructionMethod: {
+        defaultValue: '',
+        type: 'select',
+        label: 'Tesseract Construction Method',
+        description: 'Student answer for how a tesseract is constructed',
+        placeholder: '?',
+        correctAnswer: 'drag cube into 4th dimension',
+        options: ['rotate a cube', 'drag cube into 4th dimension', 'stack 8 cubes', 'fold a cube net'],
+        color: '#AC8BF9',
+    },
 };
 
 /**
