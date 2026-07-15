@@ -78,83 +78,219 @@ export interface VariableDefinition {
  */
 export const variableDefinitions: Record<string, VariableDefinition> = {
     // ========================================
-    // ADD YOUR VARIABLES HERE
+    // TESSERACT LESSON VARIABLES
     // ========================================
 
-    // Uncomment and modify these examples for your lesson:
-
-    /*
     // ─────────────────────────────────────────
-    // NUMBER - Use with sliders
+    // SECTION 0: What is a Point? (0D)
     // ─────────────────────────────────────────
-    myValue: {
-        defaultValue: 5,
+    point0dClickX: {
+        defaultValue: 0,
         type: 'number',
-        label: 'My Value',
-        description: 'A number that controls something',
-        unit: 'm',           // optional unit display
-        min: 0,
-        max: 10,
-        step: 0.5,
+        label: 'Click X Position',
+        description: 'X coordinate of the most recent click position',
+        color: '#62D0AD',
     },
-
-    // ─────────────────────────────────────────
-    // TEXT - Free text input
-    // ─────────────────────────────────────────
-    lessonTitle: {
-        defaultValue: 'My Lesson',
-        type: 'text',
-        label: 'Lesson Title',
-        description: 'The title of your lesson',
-        placeholder: 'Enter a title...',
+    point0dClickY: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Click Y Position',
+        description: 'Y coordinate of the most recent click position',
+        color: '#62D0AD',
     },
-
-    // ─────────────────────────────────────────
-    // SELECT - Dropdown with options
-    // ─────────────────────────────────────────
-    difficulty: {
-        defaultValue: 'medium',
-        type: 'select',
-        label: 'Difficulty',
-        description: 'The difficulty level of the lesson',
-        options: ['easy', 'medium', 'hard', 'expert'],
+    point0dMathWidth: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Math Width',
+        description: 'Width measured in mathematical universe (always 0)',
+        color: '#8E90F5',
     },
-
-    // ─────────────────────────────────────────
-    // BOOLEAN - Toggle switch
-    // ─────────────────────────────────────────
-    showHints: {
-        defaultValue: true,
+    point0dPhysicalWidth: {
+        defaultValue: 8,
+        type: 'number',
+        label: 'Physical Width',
+        description: 'Width measured in physical universe (dot diameter in pixels)',
+        color: '#F7B23B',
+    },
+    point0dMathArea: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Math Area',
+        description: 'Area in mathematical universe (always 0)',
+        color: '#8E90F5',
+    },
+    point0dPhysicalArea: {
+        defaultValue: 50.27,
+        type: 'number',
+        label: 'Physical Area',
+        description: 'Area in physical universe (dot area in pixels²)',
+        color: '#F7B23B',
+    },
+    point0dPointCount: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Point Count',
+        description: 'Number of points placed so far',
+        color: '#62D0AD',
+    },
+    point0dHasPlacedPoint: {
+        defaultValue: false,
         type: 'boolean',
-        label: 'Show Hints',
-        description: 'Toggle to show or hide hints',
+        label: 'Has Placed Point',
+        description: 'Whether at least one point has been placed',
+    },
+    answerPointDimension: {
+        defaultValue: '',
+        type: 'select',
+        label: 'Point Dimension Answer',
+        description: 'Student answer for what dimension a point has',
+        placeholder: '?',
+        correctAnswer: 'zero',
+        options: ['zero', 'one', 'two', 'three'],
+        color: '#8E90F5',
+    },
+    answerPointSize: {
+        defaultValue: '',
+        type: 'select',
+        label: 'Point Size Answer',
+        description: 'Student answer for what a mathematical point represents',
+        placeholder: '?',
+        correctAnswer: 'position only',
+        options: ['a small dot', 'position only', 'a tiny circle', 'an atom'],
+        color: '#62D0AD',
     },
 
     // ─────────────────────────────────────────
-    // ARRAY - List of numbers
+    // SECTION 1: Point to Line (0D → 1D)
     // ─────────────────────────────────────────
-    dataPoints: {
-        defaultValue: [1, 4, 9, 16, 25],
-        type: 'array',
-        label: 'Data Points',
-        description: 'Y-values for plotting a graph',
+    pointToLineProgress: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Extrusion Progress',
+        description: 'How far the point has been dragged to create a line',
+        min: 0,
+        max: 1,
+        step: 0.01,
+        color: '#62D0AD',
     },
 
     // ─────────────────────────────────────────
-    // OBJECT - Complex structured data
+    // SECTION 2: Line to Square (1D → 2D)
     // ─────────────────────────────────────────
-    graphSettings: {
-        defaultValue: { 
-            xMin: -10, 
-            xMax: 10, 
-            showGrid: true 
-        },
-        type: 'object',
-        label: 'Graph Settings',
-        description: 'Configuration for the graph display',
-        schema: '{ xMin: number, xMax: number, showGrid: boolean }',
+    lineToSquareProgress: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Extrusion Progress',
+        description: 'How far the line has been dragged to create a square',
+        min: 0,
+        max: 1,
+        step: 0.01,
+        color: '#8E90F5',
     },
-    */
+
+    // ─────────────────────────────────────────
+    // SECTION 3: Square to Cube (2D → 3D)
+    // ─────────────────────────────────────────
+    squareToCubeProgress: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Extrusion Progress',
+        description: 'How far the square has been dragged to create a cube',
+        min: 0,
+        max: 1,
+        step: 0.01,
+        color: '#F7B23B',
+    },
+
+    // ─────────────────────────────────────────
+    // SECTION 4: Cube to Tesseract (3D → 4D)
+    // ─────────────────────────────────────────
+    cubeToTesseractProgress: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Extrusion Progress',
+        description: 'How far the cube has been dragged into the 4th dimension',
+        min: 0,
+        max: 1,
+        step: 0.01,
+        color: '#AC8BF9',
+    },
+
+    tesseractRotationXW: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'XW Rotation',
+        description: 'Rotation angle in the XW plane (radians)',
+        min: 0,
+        max: 6.28,
+        step: 0.01,
+        color: '#62CCF9',
+    },
+
+    // ─────────────────────────────────────────
+    // ASSESSMENT VARIABLES
+    // ─────────────────────────────────────────
+    answerLineVertices: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Line Vertices Answer',
+        description: 'Student answer for number of vertices in a line',
+        placeholder: '?',
+        correctAnswer: '2',
+        color: '#62D0AD',
+    },
+
+    answerSquareVertices: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Square Vertices Answer',
+        description: 'Student answer for number of vertices in a square',
+        placeholder: '?',
+        correctAnswer: '4',
+        color: '#8E90F5',
+    },
+
+    answerCubeVertices: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Cube Vertices Answer',
+        description: 'Student answer for number of vertices in a cube',
+        placeholder: '?',
+        correctAnswer: '8',
+        color: '#F7B23B',
+    },
+
+    answerTesseractVertices: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Tesseract Vertices Answer',
+        description: 'Student answer for number of vertices in a tesseract',
+        placeholder: '?',
+        correctAnswer: '16',
+        color: '#AC8BF9',
+    },
+
+    answerVertexPattern: {
+        defaultValue: '',
+        type: 'select',
+        label: 'Vertex Pattern Answer',
+        description: 'Student answer for the pattern of vertices',
+        placeholder: '?',
+        correctAnswer: 'doubles',
+        options: ['doubles', 'adds 2', 'adds 4', 'triples'],
+        color: '#F8A0CD',
+    },
+
+    answerNextDimension: {
+        defaultValue: '',
+        type: 'select',
+        label: 'Next Dimension Method',
+        description: 'Student answer for how to create the next dimension',
+        placeholder: '?',
+        correctAnswer: 'drag perpendicular',
+        options: ['rotate it', 'drag perpendicular', 'copy it', 'stretch it'],
+        color: '#7DD3C0',
+    },
 };
 
 /**

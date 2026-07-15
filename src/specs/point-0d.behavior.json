@@ -1,0 +1,99 @@
+{
+  "sectionId": "point-0d",
+  "learningObjective": "Understand that a point has zero dimensions — no length, width, or depth, just a position. The aha moment: a mathematical point isn't the visible mark, it's the position that mark tries to represent.",
+  "ahaMoment": "No matter where I click or how many points I place, the mathematical side always measures zero while the physical side always measures something — the point itself isn't the visible mark, it's the position that mark tries to represent",
+  "miniSpec": {
+    "title": "Two Universes: Math vs Physical Drawing",
+    "narrative_wrapper": "Two identical-looking canvases sit side by side, labeled 'Mathematical Universe' and 'Physical Drawing Universe'. When you click anywhere to place a point, both canvases respond but behave fundamentally differently when you try to measure what you created. The left side refuses to acknowledge any size; the right side admits the ink blob has measurable diameter.",
+    "manipulated_variable": "Click location to place a point/dot, which controls the position being marked in both universes simultaneously",
+    "primary_visual_feedback": "Both canvases show a visible mark appear at the clicked coordinates; measurement calipers immediately appear on both sides attempting to measure the width of what was created, with the left caliper collapsing to zero and displaying '0 units' while the right caliper spans the dot showing '2.5 pixels'",
+    "causal_chain_exposed": "Live numerical readouts show 'Position: (x, y)' updating identically on both sides; 'Measurable Width' shows '0' on left and actual pixel count on right; 'Zoom Level' indicator shows both universes at same magnification; area calculations show '0 square units' vs actual pixel area",
+    "trace_strategy": "Previously placed points accumulate as faint ghosts showing their measurement annotations, building a visual argument that mathematical points consistently measure zero while drawn dots consistently have size, regardless of placement location",
+    "aha_moment": "No matter where I click or how many points I place, the mathematical side always measures zero while the physical side always measures something — the point itself isn't the visible mark, it's the position that mark tries to represent",
+    "lens": "comparison",
+    "novelty": 0.811,
+    "rubric_score": 4.64,
+    "feasibility_tier": 1
+  },
+  "modelVariables": {
+    "point0dClickX": "X coordinate of the most recent click position",
+    "point0dClickY": "Y coordinate of the most recent click position",
+    "point0dMathWidth": "Derived: width measured in mathematical universe (always 0)",
+    "point0dPhysicalWidth": "Derived: width measured in physical universe (dot diameter in pixels)",
+    "point0dMathArea": "Derived: area in mathematical universe (always 0)",
+    "point0dPhysicalArea": "Derived: area in physical universe (dot area in pixels²)",
+    "point0dPointCount": "Derived: number of points placed so far",
+    "point0dHasPlacedPoint": "Boolean: whether at least one point has been placed"
+  },
+  "assertions": [
+    {
+      "id": "initial-state-poses-problem",
+      "description": "On load, no points are placed — the canvases are empty and invite clicking",
+      "expect": [
+        { "var": "point0d_pointCount", "op": "==", "value": 0 },
+        { "var": "point0d_hasPlacedPoint", "op": "==", "value": false }
+      ],
+      "visualCheck": "Both canvases are empty with 'Click to place a point' instruction visible"
+    },
+    {
+      "id": "click-places-point-both-sides",
+      "description": "Clicking places a point at the same coordinates in both universes",
+      "setup": { "point0d_pointCount": 0 },
+      "action": { "var": "point0d_clickX", "to": 150 },
+      "expect": [
+        { "var": "point0d_hasPlacedPoint", "op": "==", "value": true },
+        { "var": "point0d_pointCount", "op": ">", "value": 0 }
+      ],
+      "visualCheck": "A visible dot appears at the clicked position in both canvases simultaneously"
+    },
+    {
+      "id": "math-width-always-zero",
+      "description": "The mathematical universe always measures width as exactly zero",
+      "setup": { "point0d_clickX": 100, "point0d_clickY": 100 },
+      "action": { "var": "point0d_clickX", "to": 200 },
+      "expect": [
+        { "var": "point0d_mathWidth", "op": "==", "value": 0 },
+        { "var": "point0d_mathArea", "op": "==", "value": 0 }
+      ],
+      "visualCheck": "Left caliper shows '0 units' collapsed to a single line"
+    },
+    {
+      "id": "physical-width-nonzero",
+      "description": "The physical universe measures the dot's actual pixel width",
+      "setup": { "point0d_clickX": 100, "point0d_clickY": 100 },
+      "action": { "var": "point0d_clickX", "to": 200 },
+      "expect": [
+        { "var": "point0d_physicalWidth", "op": ">", "value": 0 },
+        { "var": "point0d_physicalArea", "op": ">", "value": 0 }
+      ],
+      "visualCheck": "Right caliper spans the dot showing non-zero measurement"
+    },
+    {
+      "id": "aha-contrast-visible",
+      "description": "The contrast between 0 (math) and non-zero (physical) is always visible",
+      "setup": { "point0d_pointCount": 1 },
+      "action": { "var": "point0d_clickX", "to": 250 },
+      "expect": [
+        { "var": "point0d_mathWidth", "op": "==", "value": 0 },
+        { "var": "point0d_physicalWidth", "op": ">", "value": 0 }
+      ],
+      "visualCheck": "Both measurement readouts visible simultaneously showing the fundamental difference"
+    }
+  ],
+  "invariants": [
+    {
+      "id": "math-width-always-exactly-zero",
+      "description": "No matter where or how many points are placed, mathematical width is always exactly 0",
+      "expect": [
+        { "var": "point0d_mathWidth", "op": "==", "value": 0 }
+      ]
+    },
+    {
+      "id": "physical-width-always-positive-when-placed",
+      "description": "Any placed dot in physical universe has measurable positive width",
+      "expect": [
+        { "expr": "point0d_hasPlacedPoint == false || point0d_physicalWidth > 0" }
+      ]
+    }
+  ]
+}

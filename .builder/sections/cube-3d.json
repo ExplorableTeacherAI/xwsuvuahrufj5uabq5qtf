@@ -1,0 +1,33 @@
+{
+  "section_id": "cube-3d",
+  "title": "Drag Square Handle to Extrude Cube",
+  "status": "queued",
+  "detail": "",
+  "summary": "",
+  "verify_passed": null,
+  "is_revision": false,
+  "sdk_session_id": null,
+  "created_at": 1784094223.2467,
+  "updated_at": 1784094223.246704,
+  "payload": {
+    "section_id": "cube-3d",
+    "learning_objective": "Understand that dragging a square perpendicular to its plane creates a cube with three dimensions. The aha moment: the cube is built by sweeping the square through space, and every position along the drag creates a cross-section of the cube.",
+    "mini_spec": {
+      "title": "Drag Square Handle to Extrude Cube",
+      "narrative_wrapper": "A flat square sits on the screen with a handle or arrow pointing outward from its center. As you drag the handle away from the square, a 3D cube grows in real-time, stretching from the original square. Release to see the final cube with its dimensions labeled.",
+      "manipulated_variable": "Handle or arrow extending perpendicular from square's center; controls extrusion depth/distance",
+      "primary_visual_feedback": "Semi-transparent cube volume appears between original square and dragged position, with connecting edges drawing from original square's corners to new position; grows continuously during drag",
+      "causal_chain_exposed": "Distance value updates numerically; intermediate rectangular faces forming the sides are visible with subtle shading; original square remains at starting position while copied square moves",
+      "trace_strategy": "Ghost images of the square at previous positions fade gradually, showing the path of extrusion; original square remains solid to emphasize it as the base",
+      "aha_moment": "The cube isn't just appearing \u2014 it's being built by sweeping the square through space, and every position along the drag creates a cross-section of the cube",
+      "lens": "conventional",
+      "novelty": 0,
+      "rubric_score": 4.36,
+      "feasibility_tier": 1
+    },
+    "target_misconception": "Students may struggle to visualize pulling a flat square into depth on a 2D screen",
+    "audience": "Secondary school (ages 13-17)",
+    "section_context": "Fourth section. Students have seen point \u2192 line \u2192 square. Now they see square \u2192 cube. This is the last familiar 3D shape before the leap to 4D tesseract.",
+    "design_brief": "This is a lesson about building a tesseract from the ground up. The shared domain model in src/data/model.ts contains functions for counting vertices/edges/faces/cells at each dimension and for 3D/4D projections. The tone is curious and exploratory, aimed at secondary school students. Each section reveals how dragging/moving a shape perpendicular creates the next dimension. Use the muted color palette (amber #F7B23B for this section). This section shows: square (2D) \u2192 cube (3D) through perpendicular extrusion. This is the last familiar dimension before 4D."
+  }
+}

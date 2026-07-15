@@ -1,0 +1,33 @@
+{
+  "section_id": "tesseract-4d",
+  "title": "Construction Recipe Comparison: 2D\u21923D vs 3D\u21924D",
+  "status": "queued",
+  "detail": "",
+  "summary": "",
+  "verify_passed": null,
+  "is_revision": false,
+  "sdk_session_id": null,
+  "created_at": 1784094271.149633,
+  "updated_at": 1784094271.1496372,
+  "payload": {
+    "section_id": "tesseract-4d",
+    "learning_objective": "Understand that a tesseract is created by dragging a cube into the fourth dimension, and we can only see its 3D shadow/projection. The aha moment: the 4D construction process follows the exact same geometric logic as building a 3D cube from a 2D square \u2014 the pattern is identical, making 4D feel mechanically comprehensible.",
+    "mini_spec": {
+      "title": "Construction Recipe Comparison: 2D\u21923D vs 3D\u21924D",
+      "narrative_wrapper": "On the left, you watch a square being dragged perpendicular to itself to sweep out a cube, with a progress slider showing each intermediate stage. On the right, the exact same slider simultaneously shows a cube being dragged through the fourth dimension to sweep out a tesseract. Every construction step happens in parallel, so you see the pattern: each dimension adds the same way.",
+      "manipulated_variable": "Sweep distance controls how far the lower-dimensional shape has traveled perpendicular to itself, changing the completeness of the higher-dimensional object being constructed",
+      "primary_visual_feedback": "Both panels animate synchronously: the left shows the square creating stacked copies connected by edges to form the cube; the right shows the cube creating stacked copies connected by faces to form the tesseract's structure",
+      "causal_chain_exposed": "Numeric readouts show identical sweep distances; intermediate copies appear as ghosted layers; connecting elements (edges on left, faces on right) materialize progressively; labels count vertices, edges, faces, and cells in parallel",
+      "trace_strategy": "The previous position of the swept shape remains visible as a faint ghost at the starting location, with all connecting elements persisting, creating a visual history ofthe sweeping motion and showing the complete path traveled",
+      "aha_moment": "The student realizes that the 4D construction process is not mysterious\u2014it follows the exact same geometric logic as building a 3D cube from a 2D square, just applied one dimension higher; the pattern is identical, making 4D feel mechanically comprehensible",
+      "lens": "comparison",
+      "novelty": 0.901,
+      "rubric_score": 5,
+      "feasibility_tier": 2
+    },
+    "target_misconception": "Students may think 4D is impossible or purely abstract with no visual representation",
+    "audience": "Secondary school (ages 13-17)",
+    "section_context": "Final section and the payoff. Students have built up: point \u2192 line \u2192 square \u2192 cube. Now they apply the same pattern to create a tesseract and see that it's not mysterious \u2014 it's the same construction method one dimension higher.",
+    "design_brief": "This is the climax of the tesseract lesson. The shared domain model in src/data/model.ts contains functions for tesseract vertices, edges, and 4D\u21923D projection. The tone is curious and triumphant \u2014 students should feel like they've unlocked understanding of 4D by recognizing the pattern. Use violet #AC8BF9 for this section. Show the side-by-side comparison so students see the pattern: square\u2192cube on left, cube\u2192tesseract on right, both controlled by the same slider. Count vertices (4\u21928 on left, 8\u219216 on right) to reinforce the doubling pattern."
+  }
+}
