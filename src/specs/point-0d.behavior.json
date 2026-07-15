@@ -30,52 +30,52 @@
       "id": "initial-state-poses-problem",
       "description": "On load, no points are placed — the canvases are empty and invite clicking",
       "expect": [
-        { "var": "point0d_pointCount", "op": "==", "value": 0 },
-        { "var": "point0d_hasPlacedPoint", "op": "==", "value": false }
+        { "var": "point0dPointCount", "op": "==", "value": 0 },
+        { "var": "point0dHasPlacedPoint", "op": "==", "value": false }
       ],
       "visualCheck": "Both canvases are empty with 'Click to place a point' instruction visible"
     },
     {
       "id": "click-places-point-both-sides",
       "description": "Clicking places a point at the same coordinates in both universes",
-      "setup": { "point0d_pointCount": 0 },
-      "action": { "var": "point0d_clickX", "to": 150 },
+      "setup": { "point0dPointCount": 0 },
+      "action": { "var": "point0dClickX", "to": 150 },
       "expect": [
-        { "var": "point0d_hasPlacedPoint", "op": "==", "value": true },
-        { "var": "point0d_pointCount", "op": ">", "value": 0 }
+        { "var": "point0dHasPlacedPoint", "op": "==", "value": true },
+        { "var": "point0dPointCount", "op": ">", "value": 0 }
       ],
       "visualCheck": "A visible dot appears at the clicked position in both canvases simultaneously"
     },
     {
       "id": "math-width-always-zero",
       "description": "The mathematical universe always measures width as exactly zero",
-      "setup": { "point0d_clickX": 100, "point0d_clickY": 100 },
-      "action": { "var": "point0d_clickX", "to": 200 },
+      "setup": { "point0dClickX": 100, "point0dClickY": 100 },
+      "action": { "var": "point0dClickX", "to": 200 },
       "expect": [
-        { "var": "point0d_mathWidth", "op": "==", "value": 0 },
-        { "var": "point0d_mathArea", "op": "==", "value": 0 }
+        { "var": "point0dMathWidth", "op": "==", "value": 0 },
+        { "var": "point0dMathArea", "op": "==", "value": 0 }
       ],
       "visualCheck": "Left caliper shows '0 units' collapsed to a single line"
     },
     {
       "id": "physical-width-nonzero",
       "description": "The physical universe measures the dot's actual pixel width",
-      "setup": { "point0d_clickX": 100, "point0d_clickY": 100 },
-      "action": { "var": "point0d_clickX", "to": 200 },
+      "setup": { "point0dClickX": 100, "point0dClickY": 100 },
+      "action": { "var": "point0dClickX", "to": 200 },
       "expect": [
-        { "var": "point0d_physicalWidth", "op": ">", "value": 0 },
-        { "var": "point0d_physicalArea", "op": ">", "value": 0 }
+        { "var": "point0dPhysicalWidth", "op": ">", "value": 0 },
+        { "var": "point0dPhysicalArea", "op": ">", "value": 0 }
       ],
       "visualCheck": "Right caliper spans the dot showing non-zero measurement"
     },
     {
       "id": "aha-contrast-visible",
       "description": "The contrast between 0 (math) and non-zero (physical) is always visible",
-      "setup": { "point0d_pointCount": 1 },
-      "action": { "var": "point0d_clickX", "to": 250 },
+      "setup": { "point0dPointCount": 1 },
+      "action": { "var": "point0dClickX", "to": 250 },
       "expect": [
-        { "var": "point0d_mathWidth", "op": "==", "value": 0 },
-        { "var": "point0d_physicalWidth", "op": ">", "value": 0 }
+        { "var": "point0dMathWidth", "op": "==", "value": 0 },
+        { "var": "point0dPhysicalWidth", "op": ">", "value": 0 }
       ],
       "visualCheck": "Both measurement readouts visible simultaneously showing the fundamental difference"
     }
@@ -85,14 +85,14 @@
       "id": "math-width-always-exactly-zero",
       "description": "No matter where or how many points are placed, mathematical width is always exactly 0",
       "expect": [
-        { "var": "point0d_mathWidth", "op": "==", "value": 0 }
+        { "var": "point0dMathWidth", "op": "==", "value": 0 }
       ]
     },
     {
       "id": "physical-width-always-positive-when-placed",
       "description": "Any placed dot in physical universe has measurable positive width",
       "expect": [
-        { "expr": "point0d_hasPlacedPoint == false || point0d_physicalWidth > 0" }
+        { "expr": "point0dHasPlacedPoint == false || point0dPhysicalWidth > 0" }
       ]
     }
   ]

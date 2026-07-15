@@ -1,0 +1,106 @@
+{
+  "sectionId": "line-1d",
+  "learningObjective": "Understand that dragging a point in one direction creates a line segment with one dimension (length). The aha moment: the segment's length depends only on where the point ends up relative to where it started, not on the path taken — dimension measures extent in a direction, not the journey itself.",
+  "ahaMoment": "Realizing that the segment's length (the dimension created) depends only on where the point ends up relative to where it started, not on the path taken to get there — discovering that dimension measures extent in a direction, not the journey itself",
+  "miniSpec": {
+    "title": "Point Budget: Build the Longest Segment",
+    "narrative_wrapper": "You have exactly 100 movement units to spend. Click to place your starting point, then navigate to reach the farthest destination you can before your budget runs out. The challenge: straight paths consume budget efficiently, while wandering wastes it—but only the straight-line distance from start to finish becomes your final segment.",
+    "manipulated_variable": "Student clicks directional arrows (up/down/left/right) to move the point in discrete steps, changing the point's cumulative position while depleting a movement budget",
+    "primary_visual_feedback": "A dashed potential segment updates in real-time from the start point to the current point position, displaying its measured length; the remaining budget counter decrements with each arrow press and changes color (green→yellow→red) as it depletes",
+    "causal_chain_exposed": "Three live displays show: (1) total distance traveled (winding path sum), (2) straight-line segment length (start to current), and (3) efficiency ratio between them; a semi-transparent 'wasted movement' zone shows the area between the efficient straight path and the actual wandering route taken",
+    "trace_strategy": "The complete meandering path taken persists as a thin, semi-transparent trail in a muted color, contrasting sharply with the thick, vibrant straight segment connecting start to current position, making the difference between 'distance traveled' and 'displacement dimension' visually stark",
+    "aha_moment": "Realizing that the segment's length (the dimension created) depends only on where the point ends up relative to where it started, not on the path taken to get there — discovering that dimension measures extent in a direction, not the journey itself",
+    "lens": "goal_constraint",
+    "novelty": 0.838,
+    "rubric_score": 5,
+    "feasibility_tier": 1
+  },
+  "modelVariables": {
+    "line1d_startX": "X coordinate of the starting point",
+    "line1d_startY": "Y coordinate of the starting point",
+    "line1d_currentX": "X coordinate of the current point position",
+    "line1d_currentY": "Y coordinate of the current point position",
+    "line1d_budget": "Remaining movement budget (starts at 100)",
+    "line1d_distanceTraveled": "Derived: total distance traveled along the winding path",
+    "line1d_segmentLength": "Derived: straight-line distance from start to current position",
+    "line1d_efficiency": "Derived: ratio of segment length to distance traveled (0-100%)",
+    "line1d_hasStarted": "Boolean: whether the game has started (starting point placed)",
+    "line1d_isComplete": "Boolean: whether budget is exhausted"
+  },
+  "assertions": [
+    {
+      "id": "initial-state-poses-problem",
+      "description": "On load, the game awaits a starting point — budget is full and no segment exists yet",
+      "expect": [
+        { "var": "line1d_budget", "op": "==", "value": 100 },
+        { "var": "line1d_hasStarted", "op": "==", "value": false },
+        { "var": "line1d_segmentLength", "op": "==", "value": 0 }
+      ],
+      "visualCheck": "Canvas shows 'Click to place starting point' instruction, budget shows 100, no segment visible"
+    },
+    {
+      "id": "movement-depletes-budget",
+      "description": "Each step depletes the budget by the step distance",
+      "setup": { "line1d_hasStarted": true, "line1d_budget": 100, "line1d_currentX": 150, "line1d_currentY": 150 },
+      "action": { "var": "line1d_currentX", "to": 170 },
+      "expect": [
+        { "var": "line1d_budget", "op": "<", "value": 100 },
+        { "var": "line1d_distanceTraveled", "op": ">", "value": 0 }
+      ],
+      "visualCheck": "Budget counter decreases and path trail extends"
+    },
+    {
+      "id": "straight-path-maximizes-segment",
+      "description": "Moving in a straight line results in segment length equal to distance traveled",
+      "setup": { "line1d_hasStarted": true, "line1d_startX": 150, "line1d_startY": 150, "line1d_currentX": 150, "line1d_currentY": 150, "line1d_distanceTraveled": 0 },
+      "action": { "var": "line1d_currentX", "to": 190 },
+      "expect": [
+        { "var": "line1d_efficiency", "op": "approx", "value": 100, "tolerance": 5 }
+      ],
+      "visualCheck": "Path trail and segment overlap perfectly, efficiency shows ~100%"
+    },
+    {
+      "id": "wandering-wastes-budget",
+      "description": "Moving back and forth results in segment length less than distance traveled",
+      "setup": { "line1d_hasStarted": true, "line1d_startX": 150, "line1d_startY": 150, "line1d_currentX": 150, "line1d_currentY": 150, "line1d_distanceTraveled": 60 },
+      "action": { "var": "line1d_segmentLength", "to": 20 },
+      "expect": [
+        { "var": "line1d_efficiency", "op": "<", "value": 50 }
+      ],
+      "visualCheck": "Long winding path visible but short segment; efficiency shows low percentage"
+    },
+    {
+      "id": "aha-segment-depends-on-endpoints",
+      "description": "Two different paths to the same endpoint produce the same segment length",
+      "setup": { "line1d_startX": 150, "line1d_startY": 150, "line1d_currentX": 200, "line1d_currentY": 200 },
+      "action": { "var": "line1d_distanceTraveled", "to": 80 },
+      "expect": [
+        { "var": "line1d_segmentLength", "op": "approx", "value": 70.7, "tolerance": 5 }
+      ],
+      "visualCheck": "Regardless of path taken, segment length remains constant based on endpoint displacement"
+    }
+  ],
+  "invariants": [
+    {
+      "id": "segment-never-exceeds-traveled",
+      "description": "Straight-line segment length can never exceed the total distance traveled",
+      "expect": [
+        { "expr": "line1d_segmentLength <= line1d_distanceTraveled + 0.1" }
+      ]
+    },
+    {
+      "id": "budget-never-negative",
+      "description": "Budget cannot go below zero",
+      "expect": [
+        { "expr": "line1d_budget >= 0" }
+      ]
+    },
+    {
+      "id": "efficiency-bounded",
+      "description": "Efficiency is always between 0 and 100 percent",
+      "expect": [
+        { "expr": "line1d_efficiency >= 0 && line1d_efficiency <= 100" }
+      ]
+    }
+  ]
+}
