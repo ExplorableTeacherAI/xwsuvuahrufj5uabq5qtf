@@ -548,31 +548,31 @@ export const tesseract4dBlocks: ReactElement[] = [
         </Block>
     </StackLayout>,
 
-    // ── Introduction ─────────────────────────────────────────────────────────
-    <StackLayout key="layout-tesseract-intro" maxWidth="xl">
-        <Block id="tesseract-intro" padding="sm">
-            <EditableParagraph id="para-tesseract-intro" blockId="tesseract-intro">
-                We built a cube by dragging a square into the third dimension. What happens if we take that cube and drag it in a direction{" "}
-                <InlineTooltip
-                    id="tooltip-perpendicular-4d"
-                    tooltip="A direction that is 90° away from ALL three existing dimensions: length, width, and depth. We cannot point in this direction, but we can imagine it mathematically."
-                >
-                    perpendicular to all three of its dimensions
-                </InlineTooltip>
-                ? We create a{" "}
+    // ── Hook: Show the tesseract first ────────────────────────────────────────
+    <StackLayout key="layout-tesseract-hook" maxWidth="xl">
+        <Block id="tesseract-hook" padding="sm">
+            <EditableParagraph id="para-tesseract-hook" blockId="tesseract-hook">
+                Have you ever wondered how a{" "}
                 <InlineSpotColor varName="tesseract4d_sweepProgress" color={VIOLET}>
                     tesseract
                 </InlineSpotColor>
-                , the 4-dimensional version of a cube.
+                {" "}is constructed? Drag the slider and discover the pattern.
             </EditableParagraph>
         </Block>
     </StackLayout>,
 
-    // ── The Pattern ──────────────────────────────────────────────────────────
+    // ── Interactive Visualization (moved up) ─────────────────────────────────
+    <StackLayout key="layout-tesseract-visualization" maxWidth="2xl">
+        <Block id="tesseract-visualization" padding="md" hasVisualization>
+            <TesseractComparisonVisualization />
+        </Block>
+    </StackLayout>,
+
+    // ── The Pattern Revealed ─────────────────────────────────────────────────
     <StackLayout key="layout-tesseract-pattern" maxWidth="xl">
         <Block id="tesseract-pattern" padding="sm">
             <EditableParagraph id="para-tesseract-pattern" blockId="tesseract-pattern">
-                Here is the remarkable thing: the construction method is exactly the same. Watch both panels as you drag the slider. On the left, a{" "}
+                On the left, a{" "}
                 <InlineSpotColor varName="tesseract4d_leftVertices" color={AMBER}>
                     square
                 </InlineSpotColor>
@@ -580,27 +580,7 @@ export const tesseract4dBlocks: ReactElement[] = [
                 <InlineSpotColor varName="tesseract4d_rightVertices" color={VIOLET}>
                     cube
                 </InlineSpotColor>
-                {" "}sweeps into a tesseract. The pattern is identical.
-            </EditableParagraph>
-        </Block>
-    </StackLayout>,
-
-    // ── Interactive Visualization ────────────────────────────────────────────
-    <StackLayout key="layout-tesseract-visualization" maxWidth="2xl">
-        <Block id="tesseract-visualization" padding="md" hasVisualization>
-            <TesseractComparisonVisualization />
-        </Block>
-    </StackLayout>,
-
-    // ── Guided Exploration ───────────────────────────────────────────────────
-    <StackLayout key="layout-tesseract-exploration" maxWidth="xl">
-        <Block id="tesseract-exploration" padding="sm">
-            <EditableParagraph id="para-tesseract-exploration" blockId="tesseract-exploration">
-                Drag the slider slowly and watch the vertex counts. On the left, vertices go from 4 to 8. On the right, vertices go from 8 to 16. Each dimension doubles the vertices.{" "}
-                <InlineTrigger varName="tesseract4d_sweepProgress" value={0} icon="refresh">
-                    Reset to start
-                </InlineTrigger>
-                {" "}and drag again, this time watching the edges form.
+                {" "}sweeps into a tesseract.
             </EditableParagraph>
         </Block>
     </StackLayout>,
@@ -616,7 +596,7 @@ export const tesseract4dBlocks: ReactElement[] = [
                 >
                     3D shadow
                 </InlineTooltip>
-                {" "}of the tesseract. The inner cube and outer cube are actually the same size in 4D, but the projection makes one appear smaller. The same way a photograph makes the back of a room look smaller than the front.
+                {" "}of the tesseract.
             </EditableParagraph>
         </Block>
     </StackLayout>,
@@ -690,7 +670,7 @@ export const tesseract4dBlocks: ReactElement[] = [
     <StackLayout key="layout-tesseract-conclusion" maxWidth="xl">
         <Block id="tesseract-conclusion" padding="sm">
             <EditableParagraph id="para-tesseract-conclusion" blockId="tesseract-conclusion">
-                The fourth dimension is not mysterious. We cannot see it directly, but we can understand it by recognizing the pattern. A point dragged creates a line. A line dragged perpendicular creates a square. A square dragged perpendicular creates a cube. A cube dragged perpendicular creates a tesseract. The recipe is always the same: drag perpendicular, double the vertices, connect the copies.
+                The recipe is always the same: drag perpendicular, double the vertices, connect the copies.
             </EditableParagraph>
         </Block>
     </StackLayout>,
