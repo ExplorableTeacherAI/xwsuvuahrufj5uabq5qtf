@@ -220,3 +220,46 @@ export const rotateZW = (point: number[], angle: number): number[] => {
 export const extrusionProgress = (progress: number): number => {
     return Math.max(0, Math.min(1, progress));
 };
+
+// ─────────────────────────────────────────────────────────────
+// LINE SEGMENT (1D) PROPERTIES
+// ─────────────────────────────────────────────────────────────
+
+/**
+ * Calculate the straight-line distance between two points.
+ * This is the segment length (the 1D dimension created by moving a point).
+ */
+export const segmentLength = (
+    startX: number,
+    startY: number,
+    endX: number,
+    endY: number
+): number => {
+    const dx = endX - startX;
+    const dy = endY - startY;
+    return Math.sqrt(dx * dx + dy * dy);
+};
+
+/**
+ * Calculate efficiency: ratio of segment length to distance traveled.
+ * Returns a percentage (0-100).
+ * A straight path has 100% efficiency; a wandering path has lower efficiency.
+ */
+export const movementEfficiency = (
+    segmentLen: number,
+    distanceTraveled: number
+): number => {
+    if (distanceTraveled === 0) return 0;
+    return Math.min(100, (segmentLen / distanceTraveled) * 100);
+};
+
+/**
+ * Get the budget color based on remaining budget.
+ * Green (>66%), Yellow (33-66%), Red (<33%)
+ */
+export const budgetColor = (budget: number, maxBudget: number = 100): string => {
+    const ratio = budget / maxBudget;
+    if (ratio > 0.66) return '#22c55e'; // green
+    if (ratio > 0.33) return '#F7B23B'; // amber/yellow
+    return '#ef4444'; // red
+};

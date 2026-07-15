@@ -161,7 +161,7 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
     },
 
     // ─────────────────────────────────────────
-    // SECTION 1: Point to Line (0D → 1D)
+    // SECTION 1: Point to Line (0D → 1D) - Point Budget Game
     // ─────────────────────────────────────────
     pointToLineProgress: {
         defaultValue: 0,
@@ -171,6 +171,98 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         min: 0,
         max: 1,
         step: 0.01,
+        color: '#62D0AD',
+    },
+    line1d_startX: {
+        defaultValue: 150,
+        type: 'number',
+        label: 'Start X',
+        description: 'X coordinate of the starting point',
+        color: '#62D0AD',
+    },
+    line1d_startY: {
+        defaultValue: 150,
+        type: 'number',
+        label: 'Start Y',
+        description: 'Y coordinate of the starting point',
+        color: '#62D0AD',
+    },
+    line1d_currentX: {
+        defaultValue: 150,
+        type: 'number',
+        label: 'Current X',
+        description: 'X coordinate of the current point position',
+        color: '#62D0AD',
+    },
+    line1d_currentY: {
+        defaultValue: 150,
+        type: 'number',
+        label: 'Current Y',
+        description: 'Y coordinate of the current point position',
+        color: '#62D0AD',
+    },
+    line1d_budget: {
+        defaultValue: 100,
+        type: 'number',
+        label: 'Movement Budget',
+        description: 'Remaining movement budget (starts at 100)',
+        min: 0,
+        max: 100,
+        color: '#22c55e',
+    },
+    line1d_distanceTraveled: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Distance Traveled',
+        description: 'Total distance traveled along the winding path',
+        color: '#F7B23B',
+    },
+    line1d_segmentLength: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Segment Length',
+        description: 'Straight-line distance from start to current position',
+        color: '#8E90F5',
+    },
+    line1d_efficiency: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Efficiency',
+        description: 'Ratio of segment length to distance traveled (0-100%)',
+        min: 0,
+        max: 100,
+        color: '#AC8BF9',
+    },
+    line1d_hasStarted: {
+        defaultValue: false,
+        type: 'boolean',
+        label: 'Game Started',
+        description: 'Whether the game has started (starting point placed)',
+    },
+    line1d_isComplete: {
+        defaultValue: false,
+        type: 'boolean',
+        label: 'Game Complete',
+        description: 'Whether budget is exhausted',
+    },
+    answerLine1dSegmentDependsOn: {
+        defaultValue: '',
+        type: 'select',
+        label: 'Segment Depends On',
+        description: 'Student answer for what determines segment length',
+        placeholder: '?',
+        correctAnswer: 'endpoints only',
+        options: ['the path taken', 'endpoints only', 'total distance', 'number of turns'],
+        color: '#8E90F5',
+    },
+    answerLine1dDimension: {
+        defaultValue: '',
+        type: 'select',
+        label: 'Line Dimension',
+        description: 'Student answer for how many dimensions a line segment has',
+        placeholder: '?',
+        correctAnswer: 'one',
+        options: ['zero', 'one', 'two', 'three'],
         color: '#62D0AD',
     },
 

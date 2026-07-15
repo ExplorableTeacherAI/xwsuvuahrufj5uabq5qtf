@@ -9,6 +9,8 @@ initializeVariableColors(variableDefinitions);
 // Import section blocks
 import { point0dBlocks } from "./sections/point-0d";
 
+import { line1dBlocks } from "./sections/line-1d";
+
 /**
  * ------------------------------------------------------------------
  * BUILDING A TESSERACT: From Point to 4D
@@ -28,4 +30,5 @@ import { point0dBlocks } from "./sections/point-0d";
 export const blocks: ReactElement[] = [
     ...point0dBlocks,
     // Additional sections will be added as they are built
+    ...line1dBlocks,
 ];

@@ -1,14 +1,14 @@
 {
   "section_id": "line-1d",
   "title": "Point Budget: Build the Longest Segment",
-  "status": "building",
-  "detail": "writing spec and code",
-  "summary": "",
+  "status": "needs_attention",
+  "detail": "built, but verification did not pass \u2014 review this section",
+  "summary": "Point Budget: Build the Longest Segment \u2014 Realizing that the segment's length (the dimension created) depends only on where the point ends up relative to where it started, not on the path taken to get there\u2014discovering t",
   "verify_passed": null,
   "is_revision": false,
   "sdk_session_id": "f7e8054c-3dd5-4288-936f-53d33285c356",
   "created_at": 1784094162.259669,
-  "updated_at": 1784094356.755862,
+  "updated_at": 1784094636.214061,
   "payload": {
     "section_id": "line-1d",
     "learning_objective": "Understand that dragging a point in one direction creates a line segment with one dimension (length). The aha moment: the segment's length depends only on where the point ends up relative to where it started, not on the path taken \u2014 dimension measures extent in a direction, not the journey itself.",
