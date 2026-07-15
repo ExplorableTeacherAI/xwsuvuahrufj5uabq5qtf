@@ -304,3 +304,71 @@ export const sweptArea = (
 export const positionsIncluded = (progress: number, maxPositions: number = 100): number => {
     return Math.floor(progress * maxPositions);
 };
+
+// ─────────────────────────────────────────────────────────────
+// CUBE (3D) PROPERTIES - SQUARE EXTRUSION
+// ─────────────────────────────────────────────────────────────
+
+/**
+ * Calculate the volume of a cube during extrusion.
+ * At extrusion = 0, volume = 0 (flat square)
+ * At extrusion = 1, volume = sideLength³
+ */
+export const cubeVolume = (sideLength: number, extrusionDepth: number): number => {
+    const depth = Math.max(0, Math.min(1, extrusionDepth));
+    return sideLength * sideLength * sideLength * depth;
+};
+
+/**
+ * Calculate the number of visible vertices during cube extrusion.
+ * At extrusion = 0: 4 vertices (just the square)
+ * At extrusion > 0: 8 vertices (full cube structure visible)
+ */
+export const cubeVerticesVisible = (extrusionDepth: number): number => {
+    return extrusionDepth > 0 ? 8 : 4;
+};
+
+/**
+ * Calculate the number of visible edges during cube extrusion.
+ * At extrusion = 0: 4 edges (just the square)
+ * At extrusion > 0: 12 edges (full cube structure visible)
+ */
+export const cubeEdgesVisible = (extrusionDepth: number): number => {
+    return extrusionDepth > 0 ? 12 : 4;
+};
+
+/**
+ * Calculate the number of visible faces during cube extrusion.
+ * At extrusion = 0: 1 face (just the square)
+ * At extrusion > 0 but < 1: Shows base, top, and 4 side faces forming
+ * At extrusion = 1: 6 faces (complete cube)
+ */
+export const cubeFacesVisible = (extrusionDepth: number): number => {
+    if (extrusionDepth <= 0) return 1;
+    if (extrusionDepth >= 1) return 6;
+    // During extrusion, we see base + top + 4 side faces partially
+    return 6;
+};
+
+/**
+ * Number of ghost cross-section squares to show during extrusion.
+ * More cross-sections at higher extrusion depths to emphasize the sweep.
+ */
+export const cubeCrossSections = (extrusionDepth: number): number => {
+    if (extrusionDepth <= 0) return 0;
+    // Show up to 5 ghost squares evenly spaced
+    return Math.min(5, Math.floor(extrusionDepth * 6));
+};
+
+/**
+ * Generate positions for ghost cross-section squares.
+ * Returns an array of depth values (0 to current depth) where ghost squares should appear.
+ */
+export const cubeCrossSectionPositions = (extrusionDepth: number, count: number): number[] => {
+    if (count <= 0 || extrusionDepth <= 0) return [];
+    const positions: number[] = [];
+    for (let i = 1; i <= count; i++) {
+        positions.push((i / (count + 1)) * extrusionDepth);
+    }
+    return positions;
+};

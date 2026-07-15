@@ -1,0 +1,107 @@
+{
+  "sectionId": "cube-3d",
+  "learningObjective": "Understand that dragging a square perpendicular to its plane creates a cube with three dimensions. The aha moment: the cube is built by sweeping the square through space, and every position along the drag creates a cross-section of the cube.",
+  "ahaMoment": "The cube isn't just appearing — it's being built by sweeping the square through space, and every position along the drag creates a cross-section of the cube",
+  "miniSpec": {
+    "title": "Drag Square Handle to Extrude Cube",
+    "narrative_wrapper": "A flat square sits on the screen with a handle or arrow pointing outward from its center. As you drag the handle away from the square, a 3D cube grows in real-time, stretching from the original square. Release to see the final cube with its dimensions labeled.",
+    "manipulated_variable": "Handle or arrow extending perpendicular from square's center; controls extrusion depth/distance",
+    "primary_visual_feedback": "Semi-transparent cube volume appears between original square and dragged position, with connecting edges drawing from original square's corners to new position; grows continuously during drag",
+    "causal_chain_exposed": "Distance value updates numerically; intermediate rectangular faces forming the sides are visible with subtle shading; original square remains at starting position while copied square moves",
+    "trace_strategy": "Ghost images of the square at previous positions fade gradually, showing the path of extrusion; original square remains solid to emphasize it as the base",
+    "aha_moment": "The cube isn't just appearing — it's being built by sweeping the square through space, and every position along the drag creates a cross-section of the cube",
+    "lens": "conventional",
+    "novelty": 0,
+    "rubric_score": 4.36,
+    "feasibility_tier": 1
+  },
+  "modelVariables": {
+    "cube3d_extrusionDepth": "Current extrusion depth from 0 (flat square) to 1 (full cube), controlled by dragging the handle",
+    "cube3d_sideLength": "Side length of the base square (constant, for display)",
+    "cube3d_crossSectionCount": "Derived: number of ghost cross-sections shown during extrusion",
+    "cube3d_volume": "Derived: volume = sideLength³ × extrusionDepth",
+    "cube3d_faces": "Derived: number of faces visible (2 at start, 6 when complete)",
+    "cube3d_edges": "Derived: number of edges visible (4 at start, 12 when complete)",
+    "cube3d_vertices": "Derived: number of vertices visible (4 at start, 8 when complete)",
+    "cube3d_hasInteracted": "Boolean: whether the student has started dragging"
+  },
+  "assertions": [
+    {
+      "id": "initial-state-poses-problem",
+      "description": "On load, a flat square is displayed with no extrusion, inviting the student to drag the handle",
+      "expect": [
+        { "var": "cube3d_extrusionDepth", "op": "==", "value": 0 },
+        { "var": "cube3d_hasInteracted", "op": "==", "value": false }
+      ],
+      "visualCheck": "Flat amber square with a visible drag handle/arrow extending from its center, extrusion depth shows 0, prompt to drag visible"
+    },
+    {
+      "id": "dragging-creates-volume",
+      "description": "As the handle is dragged, a cube volume grows and ghost cross-sections appear",
+      "setup": { "cube3d_extrusionDepth": 0, "cube3d_hasInteracted": false },
+      "action": { "var": "cube3d_extrusionDepth", "to": 0.5 },
+      "expect": [
+        { "var": "cube3d_extrusionDepth", "op": "==", "value": 0.5 },
+        { "var": "cube3d_volume", "op": ">", "value": 0 },
+        { "var": "cube3d_hasInteracted", "op": "==", "value": true }
+      ],
+      "visualCheck": "Semi-transparent cube volume extends halfway, connecting edges visible, ghost squares trace the path"
+    },
+    {
+      "id": "full-extrusion-completes-cube",
+      "description": "At full extrusion, all 8 vertices, 12 edges, and 6 faces of the cube are visible",
+      "setup": { "cube3d_extrusionDepth": 0.5 },
+      "action": { "var": "cube3d_extrusionDepth", "to": 1 },
+      "expect": [
+        { "var": "cube3d_extrusionDepth", "op": "==", "value": 1 },
+        { "var": "cube3d_vertices", "op": "==", "value": 8 },
+        { "var": "cube3d_edges", "op": "==", "value": 12 },
+        { "var": "cube3d_faces", "op": "==", "value": 6 }
+      ],
+      "visualCheck": "Complete cube with all dimensions labeled, depth value shows 1, all 8 vertices clearly marked"
+    },
+    {
+      "id": "cross-sections-show-sweep-concept",
+      "description": "During extrusion, multiple ghost cross-sections appear showing the sweep path",
+      "setup": { "cube3d_extrusionDepth": 0.25 },
+      "action": { "var": "cube3d_extrusionDepth", "to": 0.75 },
+      "expect": [
+        { "var": "cube3d_crossSectionCount", "op": ">", "value": 1 }
+      ],
+      "visualCheck": "Multiple faded ghost squares visible between base and current position, showing the square's journey through space"
+    },
+    {
+      "id": "base-square-remains-fixed",
+      "description": "The original base square stays in place while only the front face moves with the drag",
+      "setup": { "cube3d_extrusionDepth": 0 },
+      "action": { "var": "cube3d_extrusionDepth", "to": 1 },
+      "expect": [
+        { "var": "cube3d_faces", "op": "==", "value": 6 }
+      ],
+      "visualCheck": "Original amber square remains at starting position (back face of cube), copied square moves to front, connecting edges form the four side faces"
+    }
+  ],
+  "invariants": [
+    {
+      "id": "depth-bounded",
+      "description": "Extrusion depth stays between 0 and 1",
+      "expect": [
+        { "expr": "cube3d_extrusionDepth >= 0 && cube3d_extrusionDepth <= 1" }
+      ]
+    },
+    {
+      "id": "vertices-double-from-square",
+      "description": "Vertices count doubles from 4 (square) to 8 (cube) as extrusion approaches 1",
+      "expect": [
+        { "expr": "cube3d_vertices >= 4 && cube3d_vertices <= 8" }
+      ]
+    },
+    {
+      "id": "volume-proportional-to-depth",
+      "description": "Volume grows linearly with extrusion depth",
+      "expect": [
+        { "expr": "abs(cube3d_volume - (cube3d_sideLength * cube3d_sideLength * cube3d_sideLength * cube3d_extrusionDepth)) < 0.1" }
+      ]
+    }
+  ]
+}
