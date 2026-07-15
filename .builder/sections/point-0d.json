@@ -1,0 +1,33 @@
+{
+  "section_id": "point-0d",
+  "title": "Two Universes: Math vs Physical Drawing",
+  "status": "needs_attention",
+  "detail": "built, but verification did not pass \u2014 review this section",
+  "summary": "Two Universes: Math vs Physical Drawing \u2014 No matter where I click or how many points I place, the mathematical side always measures zero while the physical side always measures something \u2014 the point itself isn't the visi",
+  "verify_passed": null,
+  "is_revision": false,
+  "sdk_session_id": "03f156f0-90cd-46aa-87ac-8a58c332cc1e",
+  "created_at": 1784094123.5364852,
+  "updated_at": 1784094353.320837,
+  "payload": {
+    "section_id": "point-0d",
+    "learning_objective": "Understand that a point has zero dimensions \u2014 no length, width, or depth, just a position. The aha moment: a mathematical point isn't the visible mark, it's the position that mark tries to represent.",
+    "mini_spec": {
+      "title": "Two Universes: Math vs Physical Drawing",
+      "narrative_wrapper": "Two identical-looking canvases sit side by side, labeled 'Mathematical Universe' and 'Physical Drawing Universe'. When you click anywhere to place a point, both canvases respond but behave fundamentally differently when you try to measure what you created. The left side refuses to acknowledge any size; the right side admits the ink blob has measurable diameter.",
+      "manipulated_variable": "Click location to place a point/dot, which controls the position being marked in both universes simultaneously",
+      "primary_visual_feedback": "Both canvases show a visible mark appear at the clicked coordinates; measurement calipers immediately appear on both sides attempting to measure the width of what was created, with the left caliper collapsing to zero and displaying '0 units' while the right caliper spans the dot showing '2.5 pixels'",
+      "causal_chain_exposed": "Live numerical readouts show 'Position: (x, y)' updating identically on both sides; 'Measurable Width' shows '0' on left and actual pixel count on right; 'Zoom Level' indicator shows both universes at same magnification; area calculations show '0 square units' vs actual pixel area",
+      "trace_strategy": "Previously placed points accumulate as faint ghosts showing their measurement annotations, building a visual argument that mathematical points consistently measure zero while drawn dots consistently have size, regardless of placement location",
+      "aha_moment": "No matter where I click or how many points I place, the mathematical side always measures zero while the physical side always measures something \u2014 the point itself isn't the visible mark, it's the position that mark tries to represent",
+      "lens": "comparison",
+      "novelty": 0.811,
+      "rubric_score": 4.64,
+      "feasibility_tier": 1
+    },
+    "target_misconception": "Students may think a point has size because we draw it as a dot",
+    "audience": "Secondary school (ages 13-17)",
+    "section_context": "Opening section of the tesseract lesson. This introduces the concept of zero dimensions before students build up to 1D, 2D, 3D, and finally 4D.",
+    "design_brief": "This is a lesson about building a tesseract from the ground up, starting with 0D (point) and working up through 1D (line), 2D (square), 3D (cube), and finally 4D (tesseract). The shared domain model in src/data/model.ts contains functions for counting vertices/edges/faces at each dimension and for projecting 4D tesseracts to 3D. The tone is curious and exploratory, aimed at secondary school students with no prior knowledge. Each section should reveal how dragging a shape perpendicular to itself creates the next dimension."
+  }
+}

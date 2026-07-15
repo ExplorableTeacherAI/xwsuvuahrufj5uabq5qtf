@@ -1,0 +1,33 @@
+{
+  "section_id": "line-1d",
+  "title": "Point Budget: Build the Longest Segment",
+  "status": "needs_attention",
+  "detail": "built, but verification did not pass \u2014 review this section",
+  "summary": "Point Budget: Build the Longest Segment \u2014 Realizing that the segment's length (the dimension created) depends only on where the point ends up relative to where it started, not on the path taken to get there\u2014discovering t",
+  "verify_passed": null,
+  "is_revision": false,
+  "sdk_session_id": "f7e8054c-3dd5-4288-936f-53d33285c356",
+  "created_at": 1784094162.259669,
+  "updated_at": 1784094636.214061,
+  "payload": {
+    "section_id": "line-1d",
+    "learning_objective": "Understand that dragging a point in one direction creates a line segment with one dimension (length). The aha moment: the segment's length depends only on where the point ends up relative to where it started, not on the path taken \u2014 dimension measures extent in a direction, not the journey itself.",
+    "mini_spec": {
+      "title": "Point Budget: Build the Longest Segment",
+      "narrative_wrapper": "You have exactly 100 movement units to spend. Click to place your starting point, then navigate to reach the farthest destination you can before your budget runs out. The challenge: straight paths consume budget efficiently, while wandering wastes it\u2014but only the straight-line distance from start to finish becomes your final segment.",
+      "manipulated_variable": "Student clicks directional arrows (up/down/left/right) to move the point in discrete steps, changing the point's cumulative position while depleting a movement budget",
+      "primary_visual_feedback": "A dashed potential segment updates in real-time from the start point to the current point position, displaying its measured length; the remaining budget counter decrements with each arrow press and changes color (green\u2192yellow\u2192red) as it depletes",
+      "causal_chain_exposed": "Three live displays show: (1) total distance traveled (winding path sum), (2) straight-line segment length (start to current), and (3) efficiency ratio between them; a semi-transparent 'wasted movement' zone shows the area between the efficient straight path and the actual wandering route taken",
+      "trace_strategy": "The complete meandering path taken persists as a thin, semi-transparent trail in a muted color, contrasting sharply with the thick, vibrant straight segment connecting start to current position, making the difference between 'distance traveled' and 'displacement dimension' visually stark",
+      "aha_moment": "Realizing that the segment's length (the dimension created) depends only on where the point ends up relative to where it started, not on the path taken to get there\u2014discovering that dimension measures extent in a direction, not the journey itself",
+      "lens": "goal_constraint",
+      "novelty": 0.838,
+      "rubric_score": 5,
+      "feasibility_tier": 1
+    },
+    "target_misconception": "Students may not connect the motion of a point to the creation of a new dimension",
+    "audience": "Secondary school (ages 13-17)",
+    "section_context": "Second section. Students just learned that a point has zero dimensions. Now they discover that moving a point creates the first dimension: length.",
+    "design_brief": "This is a lesson about building a tesseract from the ground up. The shared domain model in src/data/model.ts contains functions for counting vertices/edges at each dimension. The tone is curious and exploratory, aimed at secondary school students. Each section reveals how dragging/moving a shape creates the next dimension. Use the muted color palette. This section should clearly show: point (0D) \u2192 line segment (1D) through motion."
+  }
+}

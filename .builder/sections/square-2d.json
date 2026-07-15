@@ -1,0 +1,33 @@
+{
+  "section_id": "square-2d",
+  "title": "Predict the Swept Shape by Placing Corner Markers",
+  "status": "needs_attention",
+  "detail": "built, but verification did not pass \u2014 review this section",
+  "summary": "Predict the Swept Shape by Placing Corner Markers \u2014 Realizing that the swept shape is filled solid everywhere between start and end\u2014not just defined by four corner points\u2014because every intermediate position of the line c",
+  "verify_passed": null,
+  "is_revision": false,
+  "sdk_session_id": "40857977-3be0-49d2-bae3-c46dbab10b16",
+  "created_at": 1784094198.1683588,
+  "updated_at": 1784094859.051033,
+  "payload": {
+    "section_id": "square-2d",
+    "learning_objective": "Understand that dragging a line perpendicular to itself creates a square with two dimensions (length and width). The aha moment: the swept shape is filled solid everywhere between start and end because every intermediate position of the line contributed to building the two-dimensional region.",
+    "mini_spec": {
+      "title": "Predict the Swept Shape by Placing Corner Markers",
+      "narrative_wrapper": "A vertical blue line sits on the left. The student places four red dots where they think the corners of the final shape will be when the line sweeps rightward. When they press 'Reveal,' the line animates sweeping rightward, and a translucent orange shape fills in showing the actual swept region\u2014visually confronting their prediction.",
+      "manipulated_variable": "The predicted corner positions of the swept shape, which reveals the student's mental model of whether sweeping creates a continuous region (square) or just endpoint positions (four separate vertices)",
+      "primary_visual_feedback": "During marker placement, faint guide lines connect the four dots to show what shape the student is predicting. When revealed, the actual swept square grows behind the moving line, overlapping with (or contradicting) the predicted corner positions.",
+      "causal_chain_exposed": "The moving line itself remains visible throughout the sweep, showing that every position of the line during its journey contributes to the filled region. A counter shows 'Positions included: 47... 48... 49...' as the line moves, emphasizing infinite intermediate states.",
+      "trace_strategy": "Both the predicted corner markers and the actual swept square remain visible simultaneously after the reveal, creating a direct visual comparison. If the student placed markers only at the four corners of the final position (misconception), they see their four dots sitting at the boundary while the entire interior is filled.",
+      "aha_moment": "Realizing that the swept shape is filled solid everywhere between start and end\u2014not just defined by four corner points\u2014because every intermediate position of the line contributed to building the two-dimensional region.",
+      "lens": "prediction_first",
+      "novelty": 0.88,
+      "rubric_score": 4.64,
+      "feasibility_tier": 1
+    },
+    "target_misconception": "Students may think you need to draw four separate lines rather than sweep the whole line",
+    "audience": "Secondary school (ages 13-17)",
+    "section_context": "Third section. Students have seen point \u2192 line. Now they see line \u2192 square, continuing the pattern of sweeping perpendicular to create the next dimension.",
+    "design_brief": "This is a lesson about building a tesseract from the ground up. The shared domain model in src/data/model.ts contains functions for counting vertices/edges/faces at each dimension. The tone is curious and exploratory, aimed at secondary school students. Each section reveals how dragging/moving a shape creates the next dimension. Use the muted color palette (teal #62D0AD, indigo #8E90F5, amber #F7B23B). This section shows: line (1D) \u2192 square (2D) through perpendicular sweeping."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "section_id": "point-0d",
+  "project_id": "xwsuvuahrufj5uabq5qtf",
+  "passed": false,
+  "error": "Page.wait_for_function: Timeout 45000ms exceeded."
+}
