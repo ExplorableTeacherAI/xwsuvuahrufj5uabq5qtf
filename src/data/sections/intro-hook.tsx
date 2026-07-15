@@ -40,10 +40,12 @@ function RotatingTesseractScene() {
     const [, setTick] = useState(0);
     useFrame(() => setTick((t) => t + 1));
 
+    const scale = 0.5; // Make tesseract half the size
     const currentVertices = vertices4D.map((v) => {
         let rotated = rotateXW(v, angleRef.current.xw);
         rotated = rotateYW(rotated, angleRef.current.yw);
-        return project4Dto3D(rotated, 60);
+        const projected = project4Dto3D(rotated, 3);
+        return [projected[0] * scale, projected[1] * scale, projected[2] * scale] as [number, number, number];
     });
 
     return (
