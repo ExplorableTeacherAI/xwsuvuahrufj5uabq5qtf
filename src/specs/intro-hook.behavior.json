@@ -1,0 +1,23 @@
+{
+  "sectionId": "intro-hook",
+  "learningObjective": "Spark curiosity about the tesseract by showing an animated rotating 4D hypercube, inviting students to wonder how it is constructed",
+  "ahaMoment": "The student sees the mysterious rotating shape and becomes curious about how such a thing could be built",
+  "miniSpec": {
+    "title": "Animated Tesseract Hook",
+    "narrative_wrapper": "A slowly rotating tesseract captures attention and sparks curiosity before the lesson begins",
+    "manipulated_variable": "None - this is a passive animation to hook interest",
+    "primary_visual_feedback": "The tesseract rotates continuously in 4D, showing its 3D shadow morphing",
+    "causal_chain_exposed": "The visual complexity of the tesseract raises the question: how is this built?",
+    "aha_moment": "Curiosity is sparked - the student wants to understand how this shape is constructed"
+  },
+  "modelVariables": {},
+  "assertions": [
+    {
+      "id": "initial-state-poses-problem",
+      "description": "On load, the animated tesseract is visible and rotating, posing the implicit question of how it is built",
+      "expect": [],
+      "visualCheck": "Tesseract is visible and animating smoothly with 16 vertices and 32 edges in a cube-within-cube projection"
+    }
+  ],
+  "invariants": []
+}

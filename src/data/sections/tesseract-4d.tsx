@@ -1,5 +1,5 @@
-import React, { type ReactElement, useEffect, useCallback, Suspense, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { type ReactElement, useEffect, useCallback, Suspense, useMemo } from "react";
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera, Line, Text } from "@react-three/drei";
 import * as THREE from "three";
 import { StackLayout } from "@/components/layouts";
@@ -11,7 +11,6 @@ import {
     InlineFeedback,
     InlineSpotColor,
     InlineTooltip,
-    InlineTrigger,
     InteractionHintSequence,
     Slider,
 } from "@/components/atoms";
@@ -31,11 +30,6 @@ import {
     tesseractVerticesDuring4DSweep,
     project4Dto3DStereographic,
     cubeEdgeIndices,
-    tesseractVertices4D,
-    tesseractEdges,
-    rotateXW,
-    rotateYW,
-    project4Dto3D,
 } from "../model";
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -57,71 +51,6 @@ const AMBER = "#F7B23B";
 const VIOLET = "#AC8BF9";
 const SIZE = 1.5;
 const SWEEP_DEPTH = 1.5;
-
-// ── Animated Rotating Tesseract (Intro Hook) ─────────────────────────────────
-
-function RotatingTesseractScene() {
-    const angleRef = useRef({ xw: 0, yw: 0 });
-    const vertices4D = useMemo(() => tesseractVertices4D(), []);
-    const edges = useMemo(() => tesseractEdges(), []);
-
-    // Animate the rotation
-    useFrame((_, delta) => {
-        angleRef.current.xw += delta * 0.5;
-        angleRef.current.yw += delta * 0.3;
-    });
-
-    // Force re-render on each frame
-    const [, setTick] = useState(0);
-    useFrame(() => setTick((t) => t + 1));
-
-    const currentVertices = vertices4D.map((v) => {
-        let rotated = rotateXW(v, angleRef.current.xw);
-        rotated = rotateYW(rotated, angleRef.current.yw);
-        return project4Dto3D(rotated, 3);
-    });
-
-    return (
-        <>
-            <ambientLight intensity={0.6} />
-            <directionalLight position={[3, 4, 5]} intensity={0.7} />
-
-            {/* Tesseract edges */}
-            {edges.map(([i, j], idx) => (
-                <Line
-                    key={`edge-${idx}`}
-                    points={[currentVertices[i], currentVertices[j]]}
-                    color={VIOLET}
-                    lineWidth={2}
-                />
-            ))}
-
-            {/* Tesseract vertices */}
-            {currentVertices.map((pos, i) => (
-                <mesh key={`v-${i}`} position={pos}>
-                    <sphereGeometry args={[0.05, 12, 12]} />
-                    <meshStandardMaterial color={VIOLET} />
-                </mesh>
-            ))}
-        </>
-    );
-}
-
-function AnimatedTesseractIntro() {
-    return (
-        <div className="flex flex-col items-center gap-4">
-            <div className="relative bg-white rounded-lg border border-slate-200 w-full" style={{ height: 300 }}>
-                <Canvas dpr={[1, 2]}>
-                    <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
-                    <Suspense fallback={null}>
-                        <RotatingTesseractScene />
-                    </Suspense>
-                    <OrbitControls enableDamping dampingFactor={0.1} />
-                </Canvas>
-            </div>
-        </div>
-    );
-}
 
 // ── Left Panel: Square → Cube (2D) ───────────────────────────────────────────
 
@@ -615,35 +544,6 @@ export const tesseract4dBlocks: ReactElement[] = [
             <EditableH2 id="h2-tesseract-title" blockId="tesseract-title">
                 The Fourth Dimension: Building a Tesseract
             </EditableH2>
-        </Block>
-    </StackLayout>,
-
-    // ── Intro Hook: Animated Tesseract ────────────────────────────────────────
-    <StackLayout key="layout-tesseract-intro-hook" maxWidth="xl">
-        <Block id="tesseract-intro-hook" padding="sm">
-            <EditableParagraph id="para-tesseract-intro-hook" blockId="tesseract-intro-hook">
-                Have you ever wondered how this mysterious 4D shape is constructed?
-            </EditableParagraph>
-        </Block>
-    </StackLayout>,
-
-    // ── Animated Tesseract Visualization ──────────────────────────────────────
-    <StackLayout key="layout-tesseract-animated" maxWidth="xl">
-        <Block id="tesseract-animated" padding="md" hasVisualization>
-            <AnimatedTesseractIntro />
-        </Block>
-    </StackLayout>,
-
-    // ── Transition to Construction ────────────────────────────────────────────
-    <StackLayout key="layout-tesseract-transition" maxWidth="xl">
-        <Block id="tesseract-transition" padding="sm">
-            <EditableParagraph id="para-tesseract-transition" blockId="tesseract-transition">
-                This is a{" "}
-                <InlineSpotColor varName="tesseract4d_sweepProgress" color={VIOLET}>
-                    tesseract
-                </InlineSpotColor>
-                {" "}— a 4D cube. Let's see how it's built.
-            </EditableParagraph>
         </Block>
     </StackLayout>,
 

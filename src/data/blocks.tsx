@@ -7,6 +7,8 @@ useVariableStore.getState().initialize(getDefaultValues());
 initializeVariableColors(variableDefinitions);
 
 // Import section blocks
+import { introHookBlocks } from "./sections/intro-hook";
+
 import { point0dBlocks } from "./sections/point-0d";
 
 import { line1dBlocks } from "./sections/line-1d";
@@ -34,6 +36,7 @@ import { tesseract4dBlocks } from "./sections/tesseract-4d";
  */
 
 export const blocks: ReactElement[] = [
+    ...introHookBlocks,
     ...point0dBlocks,
     // Additional sections will be added as they are built
     ...line1dBlocks,
