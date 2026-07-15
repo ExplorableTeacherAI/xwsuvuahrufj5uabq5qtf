@@ -97,7 +97,7 @@ export const introHookBlocks: ReactElement[] = [
     <StackLayout key="layout-intro-title" maxWidth="xl">
         <Block id="intro-title" padding="md">
             <EditableH1 id="h1-intro-title" blockId="intro-title">
-                Building a Tesseract
+                Tesseract
             </EditableH1>
         </Block>
     </StackLayout>,
