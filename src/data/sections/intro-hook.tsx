@@ -43,7 +43,7 @@ function RotatingTesseractScene() {
     const currentVertices = vertices4D.map((v) => {
         let rotated = rotateXW(v, angleRef.current.xw);
         rotated = rotateYW(rotated, angleRef.current.yw);
-        return project4Dto3D(rotated, 3);
+        return project4Dto3D(rotated, 4);
     });
 
     return (
