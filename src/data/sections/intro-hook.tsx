@@ -40,7 +40,7 @@ function RotatingTesseractScene() {
     const [, setTick] = useState(0);
     useFrame(() => setTick((t) => t + 1));
 
-    const scale = 0.5; // Make tesseract half the size
+    const scale = 0.75; // Tesseract size
     const currentVertices = vertices4D.map((v) => {
         let rotated = rotateXW(v, angleRef.current.xw);
         rotated = rotateYW(rotated, angleRef.current.yw);
