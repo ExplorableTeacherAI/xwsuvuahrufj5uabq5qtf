@@ -25,15 +25,17 @@ import {
 
 const VIOLET = "#AC8BF9";
 
-function RotatingTesseractScene() {
+function RotatingTesseractScene({ isPlaying }: { isPlaying: boolean }) {
     const angleRef = useRef({ xw: 0, yw: 0 });
     const vertices4D = useMemo(() => tesseractVertices4D(), []);
     const edges = useMemo(() => tesseractEdges(), []);
 
-    // Animate the rotation
+    // Animate the rotation only when playing
     useFrame((_, delta) => {
-        angleRef.current.xw += delta * 0.5;
-        angleRef.current.yw += delta * 0.3;
+        if (isPlaying) {
+            angleRef.current.xw += delta * 0.5;
+            angleRef.current.yw += delta * 0.3;
+        }
     });
 
     // Force re-render on each frame
@@ -75,16 +77,36 @@ function RotatingTesseractScene() {
 }
 
 function AnimatedTesseractHook() {
+    const [isPlaying, setIsPlaying] = useState(true);
+
     return (
         <div className="flex flex-col items-center gap-4">
             <div className="relative bg-white rounded-lg w-full" style={{ height: 350 }}>
                 <Canvas dpr={[1, 2]}>
                     <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
                     <Suspense fallback={null}>
-                        <RotatingTesseractScene />
+                        <RotatingTesseractScene isPlaying={isPlaying} />
                     </Suspense>
                     <OrbitControls enableDamping dampingFactor={0.1} />
                 </Canvas>
+
+                {/* Play/Pause button */}
+                <button
+                    onClick={() => setIsPlaying(!isPlaying)}
+                    className="absolute bottom-3 right-3 p-2 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors"
+                    aria-label={isPlaying ? "Pause animation" : "Play animation"}
+                >
+                    {isPlaying ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="6" y="4" width="4" height="16" />
+                            <rect x="14" y="4" width="4" height="16" />
+                        </svg>
+                    ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                    )}
+                </button>
             </div>
         </div>
     );
