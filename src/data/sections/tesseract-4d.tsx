@@ -547,6 +547,15 @@ export const tesseract4dBlocks: ReactElement[] = [
         </Block>
     </StackLayout>,
 
+    // ── Introduction ─────────────────────────────────────────────────────────
+    <StackLayout key="layout-tesseract-intro" maxWidth="xl">
+        <Block id="tesseract-intro" padding="sm">
+            <EditableParagraph id="para-tesseract-intro" blockId="tesseract-intro">
+                We can't see the fourth dimension, but we can understand it by analogy. A cube is to a tesseract what a square is to a cube.
+            </EditableParagraph>
+        </Block>
+    </StackLayout>,
+
     // ── Interactive Construction Visualization ───────────────────────────────
     <StackLayout key="layout-tesseract-visualization" maxWidth="2xl">
         <Block id="tesseract-visualization" padding="md" hasVisualization>
