@@ -43,7 +43,7 @@ function RotatingTesseractScene() {
     const currentVertices = vertices4D.map((v) => {
         let rotated = rotateXW(v, angleRef.current.xw);
         rotated = rotateYW(rotated, angleRef.current.yw);
-        return project4Dto3D(rotated, 5);
+        return project4Dto3D(rotated, 6);
     });
 
     return (
@@ -75,7 +75,7 @@ function RotatingTesseractScene() {
 function AnimatedTesseractHook() {
     return (
         <div className="flex flex-col items-center gap-4">
-            <div className="relative bg-white rounded-lg border border-slate-200 w-full" style={{ height: 350 }}>
+            <div className="relative bg-white rounded-lg w-full" style={{ height: 350 }}>
                 <Canvas dpr={[1, 2]}>
                     <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
                     <Suspense fallback={null}>
