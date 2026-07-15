@@ -526,6 +526,16 @@ export const cubeEdgeIndices = (): [number, number][] => {
  * When sweepProgress > 0: returns all 16 vertices
  *
  * The 4D w-coordinate determines inner vs outer cube.
+ *
+ * IMPORTANT: Vertex order must match cubeEdgeIndices():
+ *   0: back-bottom-left   (-x, -y, -z)
+ *   1: back-bottom-right  (+x, -y, -z)
+ *   2: back-top-right     (+x, +y, -z)
+ *   3: back-top-left      (-x, +y, -z)
+ *   4: front-bottom-left  (-x, -y, +z)
+ *   5: front-bottom-right (+x, -y, +z)
+ *   6: front-top-right    (+x, +y, +z)
+ *   7: front-top-left     (-x, +y, +z)
  */
 export const tesseractVerticesDuring4DSweep = (
     size: number,
@@ -534,29 +544,34 @@ export const tesseractVerticesDuring4DSweep = (
     const half = size / 2;
     const wOffset = sweepProgress * size;
 
-    const vertices: [number, number, number, number][] = [];
+    // Inner cube (w = 0) - ordered to match cubeEdgeIndices()
+    const innerCube: [number, number, number, number][] = [
+        [-half, -half, -half, 0], // 0: back-bottom-left
+        [half, -half, -half, 0],  // 1: back-bottom-right
+        [half, half, -half, 0],   // 2: back-top-right
+        [-half, half, -half, 0],  // 3: back-top-left
+        [-half, -half, half, 0],  // 4: front-bottom-left
+        [half, -half, half, 0],   // 5: front-bottom-right
+        [half, half, half, 0],    // 6: front-top-right
+        [-half, half, half, 0],   // 7: front-top-left
+    ];
 
-    // Inner cube (w = 0)
-    for (let x = -1; x <= 1; x += 2) {
-        for (let y = -1; y <= 1; y += 2) {
-            for (let z = -1; z <= 1; z += 2) {
-                vertices.push([x * half, y * half, z * half, 0]);
-            }
-        }
-    }
-
-    // Outer cube (w = wOffset) - only if sweepProgress > 0
+    // Outer cube (w = wOffset) - same order, only if sweepProgress > 0
     if (sweepProgress > 0) {
-        for (let x = -1; x <= 1; x += 2) {
-            for (let y = -1; y <= 1; y += 2) {
-                for (let z = -1; z <= 1; z += 2) {
-                    vertices.push([x * half, y * half, z * half, wOffset]);
-                }
-            }
-        }
+        const outerCube: [number, number, number, number][] = [
+            [-half, -half, -half, wOffset],
+            [half, -half, -half, wOffset],
+            [half, half, -half, wOffset],
+            [-half, half, -half, wOffset],
+            [-half, -half, half, wOffset],
+            [half, -half, half, wOffset],
+            [half, half, half, wOffset],
+            [-half, half, half, wOffset],
+        ];
+        return [...innerCube, ...outerCube];
     }
 
-    return vertices;
+    return innerCube;
 };
 
 /**
