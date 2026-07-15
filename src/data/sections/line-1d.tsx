@@ -640,7 +640,7 @@ export const line1dBlocks: ReactElement[] = [
                     one dimension
                 </InlineSpotColor>
                 : length. What if we now take this line and move it in a{" "}
-                <em>new</em> direction, perpendicular to itself? We create the second dimension: a square.
+                <em>new</em> direction, perpendicular to itself? We create the second dimension.
             </EditableParagraph>
         </Block>
     </StackLayout>,
