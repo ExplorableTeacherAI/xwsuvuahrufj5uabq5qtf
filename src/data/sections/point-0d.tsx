@@ -515,7 +515,7 @@ export const point0dBlocks: ReactElement[] = [
                 <InlineSpotColor varName="pointToLineProgress" color="#62D0AD">
                     one dimension
                 </InlineSpotColor>
-                : a line.
+                .
             </EditableParagraph>
         </Block>
     </StackLayout>,
